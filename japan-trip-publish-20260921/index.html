@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F1E8">
+<title>2026 日本行程 · 最终版 · 四人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1E3A5F; --gold:#B45309; --paper:#F6F1E8; --card:#FFFcf7;
+  --line:#E4D8C4; --ink:#1A1714; --mute:#5C564E; --moss:#2F5A40;
+  --maple:#B42318; --sea:#1F4E6B;
+  --z-nav:40; --z-lb:60;
+  --chrome: calc(env(safe-area-inset-top) + 52px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:var(--chrome);overflow-x:clip}
+html,body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;
+  font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%;
+  overflow-x:clip;max-width:100%;overflow-wrap:break-word}
+img,svg,video,table,iframe{max-width:100%}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+a{color:var(--sea)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+.chrome{position:sticky;top:0;z-index:var(--z-nav);
+  background:rgba(246,241,232,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);max-width:1100px;margin:0 auto}
+.tabs a{min-height:48px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;text-decoration:none;color:var(--mute);
+  border-bottom:2px solid transparent;padding:0 2px}
+.tabs a.on{color:var(--navy);font-weight:700;border-bottom-color:var(--gold)}
+.wrap{max-width:1100px;margin:0 auto;padding:12px 16px 96px}
+.hero{position:relative;margin:8px 0 18px;border-radius:20px;overflow:hidden}
+.hero img{width:100%;height:min(52vw,400px);object-fit:cover;display:block;cursor:zoom-in}
+.hero-mask{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,58,95,.08),rgba(26,23,20,.78) 72%)}
+.hero-txt{position:absolute;left:20px;right:20px;bottom:20px;color:#fff}
+.kicker{font-size:12px;letter-spacing:.16em;opacity:.9;margin:0 0 8px;font-family:Karla,sans-serif}
+h1{font-family:"Noto Serif SC",serif;font-size:clamp(26px,6vw,40px);line-height:1.2;margin:0 0 8px}
+.lede{margin:0;max-width:42em;opacity:.96;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat b{display:block;font-size:20px;font-family:"Noto Serif SC",serif;color:var(--navy);line-height:1.25}
+.stat span{font-size:12px;color:var(--mute)}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 20px}
+.cal a{min-height:84px;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:10px 6px;text-align:center}
+.cal i{display:block;width:26px;height:26px;line-height:26px;margin:0 auto 6px;border-radius:50%;
+  background:var(--navy);color:#fff;font-style:normal;font-size:12px;font-family:Karla,sans-serif}
+.cal .m i{background:var(--moss)} .cal .r i{background:var(--maple)}
+.cal b{display:block;font-size:13px} .cal em{font-style:normal;font-size:11px;color:var(--mute)}
+section[id]{scroll-margin-top:var(--chrome);padding:10px 0 22px}
+h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
+.h2sub{margin:0 0 14px;color:var(--mute);font-size:14px}
+.callout{border-left:4px solid var(--gold);background:var(--card);padding:14px 16px;border-radius:0 12px 12px 0;margin:0 0 16px}
+.callout.warn{border-left-color:var(--maple)}
+.callout.ok{border-left-color:var(--moss)}
+.callout b{display:block;margin-bottom:4px}
+.flights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 18px}
+.flight{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.flight.rail{grid-column:1/-1;border-color:#c9d8cc;background:#f8fbf6}
+.flight .leg{font-size:12px;color:var(--mute);letter-spacing:.06em;margin:0 0 8px}
+.flight h3{margin:0 0 10px;font-size:18px;font-family:"Noto Serif SC",serif}
+.times{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:0 0 10px}
+.times b{display:block;font-size:28px;font-family:Karla,sans-serif;color:var(--navy);line-height:1}
+.times span{font-size:13px;color:var(--mute)}
+.times .arrow{text-align:center;font-size:12px;color:var(--gold);font-weight:700}
+.meta{font-size:13px;color:var(--mute);line-height:1.7}
+.meta strong{color:var(--ink)}
+.ticket-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 12px}
+.ticket-grid div{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px}
+.ticket-grid b{display:block;font-family:Karla,sans-serif;color:var(--navy);font-size:17px}
+.ticket-grid span{display:block;color:var(--mute);font-size:11px;margin-top:2px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:0 0 16px}
+.gallery img{width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in}
+.day-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;padding:14px 16px 8px;border-bottom:1px solid var(--line)}
+.day-h .n{font-family:"Noto Serif SC",serif;font-size:26px;color:var(--maple);font-weight:700}
+.day-h h3{margin:0;font-size:17px}
+.stay{display:inline-flex;background:#eef3ea;color:var(--moss);font-size:12px;padding:4px 10px;border-radius:999px;margin-left:auto}
+.steps{padding:6px 10px 12px}
+.step{display:grid;grid-template-columns:88px 12px 1fr;gap:6px 8px;align-items:start;padding:10px 6px}
+.step + .step{border-top:1px dashed var(--line)}
+.step time{font-family:Karla,sans-serif;font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);font-size:14px;padding-top:2px}
+.step time small{display:block;color:var(--mute);font-size:11px;font-weight:600;line-height:1.2}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--navy);margin-top:8px;justify-self:center}
+.step b{display:block;font-size:15px} .step p{margin:2px 0 0;font-size:14px;color:var(--mute);line-height:1.65}
+.mode{display:inline-flex;align-items:center;border-radius:999px;background:#e8eef5;color:var(--navy);font:600 11px/1 Karla,"Noto Sans SC",sans-serif;padding:5px 8px;margin:0 6px 5px 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0 0 8px;font-size:14px;color:var(--mute)}
+.tag{display:inline-block;font-size:11px;background:#efe7d8;border-radius:999px;padding:3px 8px;margin:0 4px 6px 0}
+.tag.rec{background:var(--navy);color:#fff}
+.tag.done{background:var(--moss);color:#fff}
+.tag.hot{background:var(--maple);color:#fff}
+.sum-nights{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
+.sum-nights div{background:#faf6ee;border-radius:12px;padding:10px 6px;text-align:center}
+.sum-nights b{display:block;font-family:"Noto Serif SC",serif;font-size:20px;color:var(--navy)}
+.sum-nights span{font-size:12px;color:var(--mute)}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;align-items:center}
+.who label{font-size:13px;color:var(--mute)}
+.who input{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;width:7.5em;font:inherit}
+.me-bar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.me-bar button{min-height:40px;padding:0 12px;border:1px solid var(--line);background:#faf6ee;border-radius:999px}
+.me-bar button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.todo-cat{margin:0 0 18px}
+.todo-cat h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.todo{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:start;
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 8px}
+.todo.done{opacity:.62}
+.todo.done .t-title{text-decoration:line-through}
+.todo input[type=checkbox]{width:18px;height:18px;margin-top:3px}
+.t-title{font-size:15px;font-weight:600}
+.t-note{font-size:13px;color:var(--mute);margin:4px 0 0}
+.t-own{font-size:12px;color:var(--moss);margin-top:4px}
+.t-act{display:flex;flex-direction:column;gap:6px}
+.t-act button{min-height:36px;padding:0 10px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:13px;white-space:nowrap}
+.t-act .claim{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sync{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:14px;margin-top:8px}
+.sync textarea{width:100%;min-height:72px;border:1px solid var(--line);border-radius:10px;padding:10px;font:13px/1.5 ui-monospace,monospace}
+.sync .row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.sync button{min-height:40px;padding:0 14px;border:0;border-radius:10px;background:var(--navy);color:#fff}
+.sync button.ghost{background:#efe7d8;color:var(--ink)}
+.progress{font-size:13px;color:var(--mute);margin:0 0 12px}
+.cmp-table{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cmp-table th,.cmp-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+.cmp-table th{background:#faf6ee;font-size:12px;color:var(--mute);font-weight:600}
+.cmp-table tr:last-child td{border-bottom:0}
+.cmp-table .yes{color:var(--moss);font-weight:700}
+.cmp-table .no{color:var(--maple)}
+.cmp-table .pick-row{background:#eef3ea}
+.lb{position:fixed;inset:0;background:rgba(12,9,7,.92);display:none;align-items:center;justify-content:center;z-index:var(--z-lb);cursor:zoom-out}
+.lb.show{display:flex}
+.lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px}
+.map-svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.gmap{margin:14px 0 8px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.gmap iframe{display:block;width:100%;height:min(62vh,520px);border:0}
+.gmap-link{display:inline-block;margin:0 0 18px;font-size:14px}
+.foot{font-size:12px;color:var(--mute);margin-top:16px}
+@media (max-width:768px){
+  .tabs a{font-size:12px}
+  .stats,.grid3,.sum-nights,.cal{grid-template-columns:1fr 1fr}
+  .flights{grid-template-columns:1fr}
+  .todo{grid-template-columns:28px 1fr; }
+  .t-act{grid-column:2;flex-direction:row;flex-wrap:wrap}
+  .hero-txt{left:16px;right:16px;bottom:16px}
+  h1{font-size:26px}
+  .times b{font-size:22px}
+  .ticket-grid{grid-template-columns:1fr 1fr}
+  .who input{width:46%}
+  .gmap iframe{height:70vh}
+  .cmp-table,.cmp-table thead,.cmp-table tbody,.cmp-table tr,.cmp-table th,.cmp-table td{display:block;width:100%}
+  .cmp-table thead{display:none}
+  .cmp-table tr{padding:12px;border-bottom:1px solid var(--line)}
+  .cmp-table td{border:0;padding:3px 0}
+  .cmp-table td:first-child{font-weight:700;font-size:16px;color:var(--navy);padding-top:0}
+  .cmp-table td:not(:first-child)::before{content:attr(data-h);display:block;font-size:11px;color:var(--mute);margin-top:6px}
+}
+@media (max-width:380px){
+  .stats,.cal,.sum-nights{grid-template-columns:1fr}
+  .ticket-grid{grid-template-columns:1fr}
+  .step{grid-template-columns:76px 10px 1fr}
+}
+</style>
+</head>
+<body>
+<div class="chrome">
+  <nav class="tabs" aria-label="页面导航">
+    <a href="#overview" class="on">总览</a>
+    <a href="#flights">已购票</a>
+    <a href="#plan">日程</a>
+    <a href="#stay">住宿</a>
+    <a href="#note">其他</a>
+  </nav>
+</div>
+<div class="wrap">
+
+<section id="overview">
+  <header class="hero">
+    <img src="assets/d3-mikurigaike.jpg" alt="室堂微库里池">
+    <div class="hero-mask"></div>
+    <div class="hero-txt">
+      <p class="kicker">FINAL · 4 PEOPLE · 2026</p>
+      <h1>关西进山，成田回家</h1>
+      <p class="lede">机票已买。10/1 乐桃 MM80 浦东→关西；10/8 吉祥 HO1380 成田→浦东。四人，先看山再逛街。</p>
+    </div>
+  </header>
+  <div class="stats">
+    <div class="stat"><b>8 天 · 7 晚</b><span>日本 7 晚；9/30 另住浦东</span></div>
+    <div class="stat"><b>4 人 · 2 间</b><span>双人房 × 2</span></div>
+    <div class="stat"><b>机票已出</b><span>MM80 + HO1380</span></div>
+    <div class="stat"><b>10/2 票已购</b><span>08:20 富山 · 09:50 立山 · 4 人</span></div>
+  </div>
+  <div class="callout ok"><b>路线已锁</b>去程关西、回程成田，不再走名古屋或关西返程。日程按东京线排：富山 1 晚 → 松本 3 晚 → 新宿 3 晚。</div>
+  <div class="callout warn"><b>06:15 起飞</b>10/1 清晨从浦东走。四人 9/30 必须住浦东机场附近，或确认能在凌晨 3 点前从杭州出发。</div>
+  <div class="cal">
+    <a href="#d0"><i>0</i><b>9/30 周三</b><em>浦东过夜</em></a>
+    <a href="#d1"><i>1</i><b>10/1 周四</b><em>关西 → 富山</em></a>
+    <a href="#d2" class="m"><i>2</i><b>10/2 周五</b><em>立山黑部</em></a>
+    <a href="#d3" class="m"><i>3</i><b>10/3 周六</b><em>上高地</em></a>
+    <a href="#d4" class="m"><i>4</i><b>10/4 周日</b><em>乗鞍</em></a>
+    <a href="#d5"><i>5</i><b>10/5 周一</b><em>松本 → 新宿</em></a>
+    <a href="#d6"><i>6</i><b>10/6 周二</b><em>银座</em></a>
+    <a href="#d7"><i>7</i><b>10/7 周三</b><em>御殿场</em></a>
+    <a href="#d8" class="r"><i>8</i><b>10/8 周四</b><em>成田回家</em></a>
+  </div>
+  <svg class="map-svg" viewBox="0 0 900 220" aria-label="路线示意">
+    <rect x="20" y="40" width="140" height="90" rx="14" fill="#e8f0e9"/>
+    <rect x="180" y="40" width="140" height="90" rx="14" fill="#efe7d8"/>
+    <rect x="340" y="40" width="160" height="90" rx="14" fill="#f3e0d2"/>
+    <rect x="520" y="40" width="160" height="90" rx="14" fill="#efe7d8"/>
+    <rect x="700" y="40" width="160" height="90" rx="14" fill="#e8eef5"/>
+    <text x="90" y="78" text-anchor="middle" font-size="13" fill="#2F5A40" font-weight="700">D1 关西</text>
+    <text x="90" y="100" text-anchor="middle" font-size="12" fill="#5C564E">KIX 09:35</text>
+    <text x="250" y="78" text-anchor="middle" font-size="13" fill="#1E3A5F" font-weight="700">D1 晚 富山</text>
+    <text x="250" y="100" text-anchor="middle" font-size="12" fill="#5C564E">1 晚 · 2 间</text>
+    <text x="420" y="78" text-anchor="middle" font-size="13" fill="#B45309" font-weight="700">D2–D4 松本</text>
+    <text x="420" y="100" text-anchor="middle" font-size="12" fill="#5C564E">翻山 · 上高地 · 乗鞍</text>
+    <text x="600" y="78" text-anchor="middle" font-size="13" fill="#1E3A5F" font-weight="700">D5–D7 新宿</text>
+    <text x="600" y="100" text-anchor="middle" font-size="12" fill="#5C564E">银座 · 御殿场</text>
+    <text x="780" y="78" text-anchor="middle" font-size="13" fill="#1F4E6B" font-weight="700">D8 成田</text>
+    <text x="780" y="100" text-anchor="middle" font-size="12" fill="#5C564E">NRT 13:20</text>
+    <text x="450" y="175" text-anchor="middle" font-size="12" fill="#5C564E">西 ← 关西进山　　成田出 → 东</text>
+  </svg>
+  <div class="gmap">
+    <iframe
+      title="日本行程 Google 地图"
+      src="https://www.google.com/maps/d/embed?mid=1lFceAEsui0dKJ1rMqycE2l1nn5OM5bQ&hl=zh-CN"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen></iframe>
+  </div>
+  <a class="gmap-link" href="https://www.google.com/maps/d/viewer?mid=1lFceAEsui0dKJ1rMqycE2l1nn5OM5bQ&usp=sharing" target="_blank" rel="noopener">在 Google 地图打开（可导航）</a>
+</section>
+
+<section id="flights">
+  <h2>已购交通</h2>
+  <p class="h2sub">两段航班和 10/2 富山→扇泽贯通票均为 4 人。航班行李额及铁路二维码以各订单页为准。</p>
+  <div class="flights">
+    <article class="flight">
+      <div class="leg">第一程 · 10/1 周四 · 全程 2 小时 20 分</div>
+      <h3>乐桃航空 MM80</h3>
+      <div class="times">
+        <div><b>06:15</b><span>PVG 上海浦东 T2</span></div>
+        <div class="arrow">空客 320<br>无餐食</div>
+        <div style="text-align:right"><b>09:35</b><span>KIX 关西 T2</span></div>
+      </div>
+      <p class="meta">建议 <strong>4:00 前到浦东 T2</strong>。9/30 住机场附近。入境+取箱按 60–90 分钟留。</p>
+    </article>
+    <article class="flight">
+      <div class="leg">第二程 · 10/8 周四 · 全程 3 小时 5 分</div>
+      <h3>吉祥航空 HO1380</h3>
+      <div class="times">
+        <div><b>13:20</b><span>NRT 东京成田 T2</span></div>
+        <div class="arrow">波音 787<br>有餐食</div>
+        <div style="text-align:right"><b>15:25</b><span>PVG 上海浦东 T2</span></div>
+      </div>
+      <p class="meta">建议 <strong>11:00 前到成田 T2</strong>。新宿坐 N'EX，约 80 分钟，<strong>8:00–8:30 一班</strong>比较稳。浦东落地后回杭州另安排。</p>
+    </article>
+    <article class="flight rail">
+      <div class="leg">已购车票 · 10/2 周五 · 单程贯通 · 4 人</div>
+      <h3>富山地铁でゴー！WEB 车票</h3>
+      <div class="ticket-grid">
+        <div><b>08:20</b><span>电铁富山出发</span></div>
+        <div><b>09:28</b><span>抵达立山站</span></div>
+        <div><b>09:50</b><span>立山缆车指定出发</span></div>
+        <div><b>R26655122</b><span>预订编号</span></div>
+      </div>
+      <p class="meta"><strong>区间：</strong>电铁富山 → 扇泽；订单人数 4 人，包含订单所列的 08:20 出发座位保证项目。09:50 是立山站缆车时间，扇泽之后前往信浓大町、松本的交通需另买。<a href="https://www.alpen-route.com/_wp/information/141393" target="_blank" rel="noopener">查看该票种官方说明</a></p>
+    </article>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>每天怎么走</h2>
+  <div class="callout ok"><b>10/2 富山→扇泽已购 · 四人</b>订单 R26655122：电铁富山 08:20 出发，09:28 到立山，立山站 09:50 乘缆车；订单内列有 08:20 出发座位保证项目。该票覆盖富山地方铁道与立山黑部贯通交通，扇泽之后去信浓大町、松本另购票。</div>
+  <div class="callout"><b>时间表说明</b>航班及 10/2 上述两段为已购时间。其他具体时刻是按 2026 官方时刻表拟定的建议班次，尚待订票和出发前复核；机场入境、山路天气及高速堵车会改变实际到达。每项写明车上时间或游玩时间，换乘另留缓冲。</div>
+  <div class="sum-nights">
+    <div><b>1 晚</b><span>浦东 · 9/30</span></div>
+    <div><b>1 晚</b><span>富山 · 10/1</span></div>
+    <div><b>3 晚</b><span>松本 · 10/2–4</span></div>
+    <div><b>3 晚</b><span>新宿 · 10/5–7</span></div>
+  </div>
+
+  <article class="day" id="d0">
+    <div class="day-h"><span class="n">D0</span><h3>杭州 → 浦东过夜</h3><span class="stay">住 浦东机场附近</span></div>
+    <div class="steps">
+      <div class="step"><time>15:00<small>→ 18:30</small></time><span class="dot"></span><div><b>杭州出发 · 预留半天</b><p><span class="mode">高铁＋地铁/网约车</span>建议杭州东到上海虹桥约 1 小时，再去浦东约 1–1.5 小时；加候车、换乘，门到门按 3–4 小时。四人交通方式待确认。</p></div></div>
+      <div class="step"><time>18:30<small>→ 19:30</small></time><span class="dot"></span><div><b>浦东机场附近入住</b><p><span class="mode">酒店班车/网约车 · 10–20 分</span>入住与晚饭约 1 小时，确认次日凌晨去 T2 的车。</p></div></div>
+      <div class="step"><time>20:00<small>→ 20:30</small></time><span class="dot"></span><div><b>值机材料与行李检查</b><p>约 30 分钟：护照、签证、MM80 订单、托运行李额度、交通卡和手机网络。</p></div></div>
+      <div class="step"><time>21:00<small>→ 03:30</small></time><span class="dot"></span><div><b>休息</b><p>明天建议 03:30 左右离店、04:00 前到浦东 T2；出发时刻取决于酒店接驳。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d1">
+    <img class="gallery" src="assets/d0-kix.jpg" alt="关西机场" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D1</span><h3>关西落地 → 富山</h3><span class="stay">住 富山 · 10/1</span></div>
+    <div class="steps">
+      <div class="step"><time>03:30<small>→ 04:00</small></time><span class="dot"></span><div><b>浦东酒店 → T2</b><p><span class="mode">酒店接驳/网约车 · 10–20 分</span>04:00 前到机场办理国际航班手续。</p></div></div>
+      <div class="step"><time>06:15<small>→ 09:35</small></time><span class="dot"></span><div><b>MM80 浦东 T2 → 关西 T2 · 已出票</b><p><span class="mode">飞机 · 2 小时 20 分</span>机上无餐，起降时间均为当地时间。</p></div></div>
+      <div class="step"><time>09:35<small>→ 11:15</small></time><span class="dot"></span><div><b>入境、取箱、T2 接驳至铁路站</b><p><span class="mode">步行＋免费摆渡车</span>入境及取箱预留 60–90 分钟；T2 到 T1/Aeroplaza 后步行到关西机场 JR 站，转场另留 20–30 分钟。</p></div></div>
+      <div class="step"><time>11:30<small>→ 12:20</small></time><span class="dot"></span><div><b>关西机场 → 新大阪</b><p><span class="mode">JR 特急 HARUKA · 约 50 分</span>此为建议出发窗口，按实际出关时间选车。</p></div></div>
+      <div class="step"><time>12:40<small>→ 16:00</small></time><span class="dot"></span><div><b>新大阪 → 敦贺 → 富山</b><p><span class="mode">THUNDERBIRD＋北陆新干线</span>到敦贺约 1 小时 20 分，换新干线到富山约 1 小时；算上换乘、午餐与等车，约 2.5–3.5 小时。</p></div></div>
+      <div class="step"><time>16:00<small>→ 17:00</small></time><span class="dot"></span><div><b>富山站前入住与寄箱</b><p><span class="mode">步行/出租车 · 5–15 分</span>到站时间按当日车次调整；大箱寄新宿并向酒店确认 10/5 收件。</p></div></div>
+      <div class="step"><time>18:00<small>→ 19:00</small></time><span class="dot"></span><div><b>晚餐与取票准备</b><p>就近吃黑拉面/白虾约 1 小时。确认四人立山票二维码；可按官网规则提前出票，次晨须留取票余量。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d2">
+    <img class="gallery" src="assets/d3-mikurigaike.jpg" alt="微库里池" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D2</span><h3>立山黑部 · 一天翻山</h3><span class="stay">住 松本</span></div>
+    <div class="steps">
+      <div class="step"><time>07:35<small>→ 08:00</small></time><span class="dot"></span><div><b>富山酒店退房，前往电铁富山站</b><p><span class="mode">步行 · 5–15 分</span>出票机取四人纸票并核对乘车券、日期和二维码，建议 08:00 前到站。</p></div></div>
+      <div class="step"><time>08:20<small>→ 09:28</small></time><span class="dot"></span><div><b>电铁富山 → 立山 · 已购</b><p><span class="mode">富山地方铁道 · 68 分</span>订单 R26655122，单程 4 人；订单内列有 08:20 出发座位保证项目。</p></div></div>
+      <div class="step"><time>09:50<small>→ 09:57</small></time><span class="dot"></span><div><b>立山 → 美女平 · 已约定</b><p><span class="mode">立山缆车 · 7 分</span>09:50 是订单标明的立山站出发时刻，不能当作从富山出发时刻。</p></div></div>
+      <div class="step"><time>10:10<small>→ 11:00</small></time><span class="dot"></span><div><b>美女平 → 室堂</b><p><span class="mode">立山高原巴士 · 约 50 分</span>排队和上下车另留缓冲，以现场指引为准。</p></div></div>
+      <div class="step"><time>11:15<small>→ 13:15</small></time><span class="dot"></span><div><b>室堂与微库里池</b><p>午饭约 30 分钟；池边散步、拍照合计约 1.5–2 小时。天气差则缩短，今日不安排雄山登顶。</p></div></div>
+      <div class="step"><time>13:20<small>→ 14:40</small></time><span class="dot"></span><div><b>室堂 → 大观峰 → 黑部平 → 黑部湖</b><p><span class="mode">电动巴士＋索道＋缆车 · 60–80 分</span>车上时间约 22 分钟，其余为站内步行、排队与换乘；按现场实时班次。</p></div></div>
+      <div class="step"><time>14:40<small>→ 15:35</small></time><span class="dot"></span><div><b>黑部水坝步行游览</b><p><span class="mode">步行 · 约 55 分</span>黑部湖站过坝至黑部水坝站约 15 分钟；观景和拍照再留 30–40 分钟。</p></div></div>
+      <div class="step"><time>15:35<small>→ 16:40</small></time><span class="dot"></span><div><b>黑部水坝 → 扇泽 → 信浓大町</b><p><span class="mode">电动巴士＋路线巴士</span>约 16 分钟到扇泽；建议衔接 16:05 巴士，约 16:40 到信浓大町。扇泽之后另付。</p></div></div>
+      <div class="step"><time>17:00<small>→ 18:00–19:00</small></time><span class="dot"></span><div><b>信浓大町 → 松本</b><p><span class="mode">JR 大糸线 · 约 1 小时</span>具体班次以当日 JR 时刻为准；若山上延误，优先保障末班接驳。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d3">
+    <img class="gallery" src="assets/d6-kamikochi.jpg" alt="上高地" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D3</span><h3>上高地 · 沿河走</h3><span class="stay">住 松本</span></div>
+    <div class="steps">
+      <div class="step"><time>06:50<small>→ 07:10</small></time><span class="dot"></span><div><b>松本酒店出发</b><p><span class="mode">步行 · 5–15 分</span>到松本站买早餐与午间饭团；山路步行按最慢的人安排。</p></div></div>
+      <div class="step"><time>07:15<small>→ 07:49</small></time><span class="dot"></span><div><b>松本 → 新岛岛</b><p><span class="mode">上高地线电车 · 34 分</span>接 08:00 巴士，换乘 11 分钟，事先确认票与站台。</p></div></div>
+      <div class="step"><time>08:00<small>→ 08:54</small></time><span class="dot"></span><div><b>新岛岛 → 大正池</b><p><span class="mode">预约优先巴士 · 54 分</span>四人提前订去程及回程。</p></div></div>
+      <div class="step"><time>09:00<small>→ 11:30</small></time><span class="dot"></span><div><b>大正池 → 田代池 → 河童桥</b><p><span class="mode">徒步 · 2–2.5 小时</span>沿步道慢走、拍照，途中视体力调整。</p></div></div>
+      <div class="step"><time>11:30<small>→ 15:00</small></time><span class="dot"></span><div><b>河童桥午饭与自由活动</b><p>午饭 45–60 分钟；河岸/游客中心轻松游览约 2–2.5 小时。不默认爬烧岳。</p></div></div>
+      <div class="step"><time>15:15<small>→ 17:13</small></time><span class="dot"></span><div><b>上高地 → 新岛岛 → 松本</b><p><span class="mode">巴士 65 分＋电车 30 分</span>15:15–16:20 到新岛岛；16:43 电车、17:13 到松本。巴士回程要预约。</p></div></div>
+      <div class="step"><time>18:00<small>→ 19:00</small></time><span class="dot"></span><div><b>松本晚餐</b><p>信州荞麦面约 1 小时；同一酒店连住。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d4">
+    <img class="gallery" src="assets/d5-ropeway.jpg" alt="高原缆车" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D4</span><h3>乗鞍 · 高处看秋色</h3><span class="stay">住 松本</span></div>
+    <div class="steps">
+      <div class="step"><time>07:15<small>→ 07:49</small></time><span class="dot"></span><div><b>松本 → 新岛岛</b><p><span class="mode">上高地线电车 · 34 分</span>08:00 换巴士；出门前查看乘鞍岳道路和班车运行情况。</p></div></div>
+      <div class="step"><time>08:00<small>→ 08:57</small></time><span class="dot"></span><div><b>新岛岛 → 乘鞍高原观光中心</b><p><span class="mode">路线巴士 · 57 分</span>抵达后有约 30 分钟换高原接驳车。</p></div></div>
+      <div class="step"><time>09:30<small>→ 10:25</small></time><span class="dot"></span><div><b>高原观光中心 → 畳平</b><p><span class="mode">乘鞍岳接驳巴士 · 55 分</span>去回程都是预约优先，提前订妥。</p></div></div>
+      <div class="step"><time>10:25<small>→ 12:25</small></time><span class="dot"></span><div><b>畳平轻徒步与午餐</b><p><span class="mode">徒步 · 约 2 小时</span>高原观景、短步道、轻食和休息；不安排剑峰登顶。山上寒冷、风大，视天气缩短。</p></div></div>
+      <div class="step"><time>12:30<small>→ 13:25</small></time><span class="dot"></span><div><b>畳平 → 乘鞍高原观光中心</b><p><span class="mode">接驳巴士 · 55 分</span>建议预约 12:30 下山车；回到观光中心后约 40 分钟转车。</p></div></div>
+      <div class="step"><time>14:07<small>→ 15:16</small></time><span class="dot"></span><div><b>乘鞍高原观光中心 → 新岛岛</b><p><span class="mode">路线巴士 · 69 分</span>预留 9 分钟换乘 15:25 电车。</p></div></div>
+      <div class="step"><time>15:25<small>→ 15:55</small></time><span class="dot"></span><div><b>新岛岛 → 松本</b><p><span class="mode">上高地线电车 · 30 分</span>傍晚休息、晚饭和整理次日行李；如改晚班，须同步调整前段接驳。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d5">
+    <img class="gallery" src="assets/d7-matsumoto.jpg" alt="松本城" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D5</span><h3>松本城 → 新宿</h3><span class="stay">住 新宿</span></div>
+    <div class="steps">
+      <div class="step"><time>08:00<small>→ 08:45</small></time><span class="dot"></span><div><b>松本酒店早餐、退房寄包</b><p>约 45 分钟；之后到松本城步行约 15–20 分钟，也可公交/出租车约 10 分钟。</p></div></div>
+      <div class="step"><time>09:00<small>→ 11:00</small></time><span class="dot"></span><div><b>松本城天守与城周</b><p>按实际开门时间入场，天守与外观约 1.5–2 小时；楼梯较陡，入场队伍可能较长。</p></div></div>
+      <div class="step"><time>11:15<small>→ 12:30</small></time><span class="dot"></span><div><b>松本市区午饭与取包</b><p><span class="mode">步行 · 15–20 分</span>午饭 45–60 分钟，然后回酒店/车站取包。</p></div></div>
+      <div class="step"><time>13:00<small>→ 15:30–15:45</small></time><span class="dot"></span><div><b>松本 → 新宿</b><p><span class="mode">特急 AZUSA 指定席 · 2.5–2.75 小时</span>13:00 是计划窗口，买到车票后以订单时刻替换。</p></div></div>
+      <div class="step"><time>16:00<small>→ 17:00</small></time><span class="dot"></span><div><b>新宿酒店入住</b><p><span class="mode">步行/地铁 · 10–25 分</span>领取或确认 10/5 到达的大箱。</p></div></div>
+      <div class="step"><time>18:00<small>→ 19:30</small></time><span class="dot"></span><div><b>新宿晚餐</b><p>约 1–1.5 小时，之后自由休息。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d6">
+    <img class="gallery" src="assets/d2-ginza.jpg" alt="银座" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D6</span><h3>银座买一天</h3><span class="stay">住 新宿</span></div>
+    <div class="steps">
+      <div class="step"><time>09:30<small>→ 10:15</small></time><span class="dot"></span><div><b>新宿 → 银座</b><p><span class="mode">东京地铁 · 20–30 分</span>算进出站与步行约 35–45 分钟，按酒店位置选入口。</p></div></div>
+      <div class="step"><time>10:15<small>→ 12:45</small></time><span class="dot"></span><div><b>银座购物第一段</b><p>衣服和百货约 2.5 小时；按清单集中逛，留试穿时间。</p></div></div>
+      <div class="step"><time>12:45<small>→ 13:45</small></time><span class="dot"></span><div><b>银座午饭</b><p>约 1 小时。</p></div></div>
+      <div class="step"><time>13:45<small>→ 14:15</small></time><span class="dot"></span><div><b>银座 → 表参道</b><p><span class="mode">地铁银座线 · 15–20 分</span>含步行约 25–35 分钟；若购物较多，可继续留在银座。</p></div></div>
+      <div class="step"><time>14:15<small>→ 16:45</small></time><span class="dot"></span><div><b>表参道散步、购物</b><p>约 2–2.5 小时；随后地铁回新宿约 20–30 分钟。</p></div></div>
+      <div class="step"><time>17:30<small>→ 19:00</small></time><span class="dot"></span><div><b>新宿晚餐与整理战利品</b><p>约 1–1.5 小时，避免在山地旅行后安排过多跨城移动。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d7">
+    <img class="gallery" src="assets/d8-shinjuku.jpg" alt="新宿" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
+    <div class="day-h"><span class="n">D7</span><h3>御殿场奥莱</h3><span class="stay">住 新宿</span></div>
+    <div class="steps">
+      <div class="step"><time>08:00<small>→ 08:20</small></time><span class="dot"></span><div><b>新宿酒店 → 巴士新宿</b><p><span class="mode">步行/地铁 · 20–30 分</span>提前 15 分钟到候车处；往返巴士购买后以订单时刻为准。</p></div></div>
+      <div class="step"><time>08:35<small>→ 09:55</small></time><span class="dot"></span><div><b>新宿 → 御殿场奥莱</b><p><span class="mode">直达高速巴士 · 1 小时 20 分</span>尚未购票；东名高速施工和堵车需额外缓冲。</p></div></div>
+      <div class="step"><time>10:00<small>→ 12:30</small></time><span class="dot"></span><div><b>奥莱购物第一段</b><p>约 2.5 小时，先去清单上的重点店。</p></div></div>
+      <div class="step"><time>12:30<small>→ 13:30</small></time><span class="dot"></span><div><b>奥莱午饭</b><p>约 1 小时；富士山视天气看，不单独等云散。</p></div></div>
+      <div class="step"><time>13:30<small>→ 17:00</small></time><span class="dot"></span><div><b>奥莱购物第二段</b><p>约 3.5 小时。回程上车前 20 分钟到 B 乘车处，确认购物袋和四人都到齐。</p></div></div>
+      <div class="step"><time>17:20<small>→ 19:30</small></time><span class="dot"></span><div><b>御殿场 → 新宿</b><p><span class="mode">直达高速巴士 · 约 2 小时 10 分</span>实际车次与时间以购买页为准，堵车时可能更晚。</p></div></div>
+      <div class="step"><time>20:00<small>→ 21:00</small></time><span class="dot"></span><div><b>新宿晚餐、整理回程行李</b><p>约 1 小时，核对航班行李额和次日去成田车票。</p></div></div>
+    </div>
+  </article>
+
+  <article class="day" id="d8">
+    <div class="day-h"><span class="n">D8</span><h3>成田回家</h3><span class="stay">HO1380 · 15:25 到浦东</span></div>
+    <div class="steps">
+      <div class="step"><time>07:30<small>→ 08:00</small></time><span class="dot"></span><div><b>新宿酒店退房</b><p><span class="mode">步行 · 15–30 分</span>前往车站并找到成田特快站台；早餐带走。</p></div></div>
+      <div class="step"><time>08:00–08:30<small>→ 09:30–10:00</small></time><span class="dot"></span><div><b>新宿 → 成田机场 T2·3 站</b><p><span class="mode">N’EX · 80–90 分</span>车票尚未购买，必须按实际班次核对出发时间和到达站。</p></div></div>
+      <div class="step"><time>10:00<small>→ 12:30</small></time><span class="dot"></span><div><b>成田 T2 办理出境</b><p>目标 11:00 前进入航站楼；值机、安检和午餐留 2 小时以上。</p></div></div>
+      <div class="step"><time>13:20<small>→ 15:25</small></time><span class="dot"></span><div><b>HO1380 成田 T2 → 浦东 T2 · 已出票</b><p><span class="mode">飞机 · 3 小时 5 分</span>有餐；起降时间均为当地时间。</p></div></div>
+      <div class="step"><time>15:25<small>→ 17:00</small></time><span class="dot"></span><div><b>浦东入境、取箱</b><p>留约 60–90 分钟。别把 15:25 当成能直接上高铁的时间。</p></div></div>
+      <div class="step"><time>17:30<small>→ 20:00–21:00</small></time><span class="dot"></span><div><b>浦东 → 杭州</b><p><span class="mode">包车 2.5–3.5 小时 / 地铁＋高铁约 2.5 小时</span>以实际落地时间和末班车决定。</p></div></div>
+    </div>
+  </article>
+</section>
+
+<section id="stay">
+  <h2>住哪里 · 4 人 2 间</h2>
+  <p class="h2sub">目标每间 ¥1,000–1,500 / 晚。下列是此前查价记录，不代表现在还能按这个价连住。</p>
+  <div class="grid3">
+    <div class="card"><span class="tag hot">9/30 · 1 晚 · 待订</span><h3>浦东机场附近</h3><p>T2 步行或 10 分钟车程。4 人 2 间。为 06:15 航班服务。</p></div>
+    <div class="card"><span class="tag rec">10/1 · 1 晚</span><h3>富山 · 大和 Roynet 站前</h3><p>JR 富山南口步行约 3 分钟。参考约 ¥596 / 间夜。</p></div>
+    <div class="card"><span class="tag rec">10/2–4 · 3 晚</span><h3>松本 · Alpico Plaza</h3><p>松本站步行约 2 分钟，靠近巴士总站。参考约 ¥653 / ¥767 / ¥845。</p></div>
+    <div class="card"><span class="tag rec">10/5–7 · 3 晚</span><h3>新宿 · 东急 Stay 或站旁</h3><p>方便去银座、御殿场大巴和 N'EX。国庆约 ¥1,000–1,700 / 间夜。</p></div>
+  </div>
+</section>
+
+<section id="prep">
+  <h2>交通卡与网络</h2>
+  <h3 style="font-size:16px;margin:18px 0 8px">交通卡怎么选</h3>
+  <p class="h2sub">这条线：关西→富山（特急+新干线）· 立山黑部（专用票）· 松本巴士 · あずさ指定席 · 东京地铁 · N'EX。全国 JR Pass 不划算。IC 卡只解决「刷闸机的短途」，长途票要另买。</p>
+  <table class="cmp-table">
+    <thead><tr><th>方案</th><th>适合这段</th><th>四人怎么买</th><th>结论</th></tr></thead>
+    <tbody>
+      <tr class="pick-row">
+        <td data-h="方案">手机西瓜 / ICOCA（推荐）</td>
+        <td data-h="适合这段">东京地铁、JR 普通车、便利店。关西 ICOCA 和东京 Suica 全国互通。</td>
+        <td data-h="四人怎么买">iPhone 可直接加 Suica/ICOCA，无押金。安卓看机型，不行就买实体卡。</td>
+        <td data-h="结论" class="yes">先定这个。一人一张，到日本后充 3000–5000 日元。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">实体 Welcome Suica / ICOCA</td>
+        <td data-h="适合这段">不会用手机交通卡的人。Welcome Suica 28 天、无押金、过期不能充。</td>
+        <td data-h="四人怎么买">关西机场买 ICOCA；成田/东京买 Suica。全国能互刷。</td>
+        <td data-h="结论">手机加不上再买实体。不要四张 Welcome 卡，回程剩钱难退。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">全国 JR Pass 7 日</td>
+        <td data-h="适合这段">本行程只有关西→富山、松本→新宿两段长途，用不上全国pass。</td>
+        <td data-h="四人怎么买">约 5 万日元/人，远贵过点票。</td>
+        <td data-h="结论" class="no">不买。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">只现金 / 只信用卡</td>
+        <td data-h="适合这段">巴士有的只收现金；地铁窗口慢。</td>
+        <td data-h="四人怎么买">每人仍要备现金坐山里巴士。</td>
+        <td data-h="结论" class="no">不能当主方案。山里巴士另备现金。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:16px;margin:18px 0 8px">电话卡 / 上网怎么选</h3>
+  <p class="h2sub">四人都要导航、翻译、买票。不要只靠酒店 Wi‑Fi。立山黑部室堂信号可能不稳，下载离线地图。</p>
+  <table class="cmp-table">
+    <thead><tr><th>方案</th><th>速度与覆盖</th><th>四人成本感</th><th>结论</th></tr></thead>
+    <tbody>
+      <tr class="pick-row">
+        <td data-h="方案">日本 eSIM × 4（推荐）</td>
+        <td data-h="速度与覆盖">SoftBank / au / Docomo 虚拟运营商，城市够用。落地开飞行模式关，开 eSIM。</td>
+        <td data-h="四人成本感">约 8 天 5–10GB/人，天猫、Airalo、Ubigi、携程都能买。四人各一张，互不影响。</td>
+        <td data-h="结论" class="yes">机子支持 eSIM 就买这个。出发前装好，落地打开。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">关西机场实体卡 × 4</td>
+        <td data-h="速度与覆盖">和 eSIM 差不多。要排队、换卡、保管小卡。</td>
+        <td data-h="四人成本感">机场溢价。09:35 落地还要赶富山，不想排队。</td>
+        <td data-h="结论">只给不能 eSIM 的安卓备用。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">随身 Wi‑Fi 1 台分享</td>
+        <td data-h="速度与覆盖">一台电，四人抢。山里没信号时全员一起断。</td>
+        <td data-h="四人成本感">租金看起来便宜，取还柜在关西进、成田出，路线匹配。</td>
+        <td data-h="结论">可以当备份，不要当唯一网。有人走散就没网。</td>
+      </tr>
+      <tr>
+        <td data-h="方案">国内号漫游</td>
+        <td data-h="速度与覆盖">移动/联通/电信日包，贵，流量少。</td>
+        <td data-h="四人成本感">四人 × 8 天通常比 eSIM 贵一截。</td>
+        <td data-h="结论" class="no">只留国内号接验证码，不上网。</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="note">
+  <h2>钱和注意</h2>
+  <p class="h2sub">机票已买，金额以订单为准，下面只估住宿、日本交通和吃饭。4 人 2 间，人均按一半房费算。</p>
+  <div class="grid3">
+    <div class="card"><h3>住宿 · 人均约 ¥3,400</h3><p>富山+松本按已查价；新宿按 ¥1,300 / 间夜 × 3 ÷ 2。浦东那晚另计。</p></div>
+    <div class="card"><h3>日本交通 · 人均约 ¥2,100</h3><p>翻山、上高地、乗鞍、あずさ、御殿场大巴、N'EX。关西→富山列车另含在内。</p></div>
+    <div class="card"><h3>吃饭 · 人均约 ¥1,760</h3><p>8 天 × 约 ¥220。不含购物和行李超重。</p></div>
+  </div>
+  <div class="callout warn" style="margin-top:16px"><b>乐桃行李</b>MM80 是廉航。四人如果各带一个托运箱，几乎一定要加购。出发前在乐桃 APP 核对件数和公斤数。</div>
+  <div class="grid3" style="margin-top:12px">
+    <div class="card"><span class="tag">富山</span><h3>黑拉面 / 白虾</h3><p>到站就近吃，第一晚早睡。</p></div>
+    <div class="card"><span class="tag">松本</span><h3>信州荞麦面</h3><p>山里备饭团。</p></div>
+    <div class="card"><span class="tag">东京</span><h3>银座 / 新宿晚饭</h3><p>御殿场午餐在奥莱解决。</p></div>
+  </div>
+  <p class="foot">交通时刻核对：<a href="https://www.alpen-route.com/en/timetable/" target="_blank" rel="noopener">立山黑部</a> · <a href="https://www.alpico.co.jp/traffic/local/kamikochi/shinshimashima/" target="_blank" rel="noopener">上高地</a> · <a href="https://www.alpico.co.jp/traffic/local/kamikochi/norikurakogen/" target="_blank" rel="noopener">乘鞍高原</a> · <a href="https://www.alpico.co.jp/traffic/local/kamikochi/echoline/" target="_blank" rel="noopener">畳平</a> · <a href="https://odakyu-highway.jp/hakone/" target="_blank" rel="noopener">御殿场巴士</a>。车次、天气和预订以当日官方信息与个人订单为准。</p>
+  <p class="foot">2026/9/21 · 四人最终版 · 航班及 10/2 立山黑部交通已购</p>
+</section>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-label="放大图片"><img alt=""></div>
+<script>
+(function(){
+const tabs=document.querySelectorAll('.tabs a');
+const io=new IntersectionObserver(ents=>{
+  ents.forEach(e=>{ if(e.isIntersecting) tabs.forEach(a=>a.classList.toggle('on', a.hash==='#'+e.target.id)); });
+},{rootMargin:'-12% 0px -70% 0px'});
+document.querySelectorAll('section[id]').forEach(x=>io.observe(x));
+const lb=document.getElementById('lb');
+document.querySelectorAll('.hero img, .day img, img.gallery').forEach(im=>im.addEventListener('click',()=>{
+  lb.querySelector('img').src=im.src; lb.querySelector('img').alt=im.alt; lb.classList.add('show');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('show'));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('show'); });
+})();
+</script>
+</body>
+</html>
