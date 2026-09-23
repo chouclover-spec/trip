@@ -29,7 +29,7 @@ button{font:inherit;cursor:pointer}
 .chrome{position:sticky;top:0;z-index:var(--z-nav);
   background:rgba(246,241,232,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
-.tabs{display:grid;grid-template-columns:repeat(5,1fr);max-width:1100px;margin:0 auto}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);max-width:1100px;margin:0 auto}
 .tabs a{min-height:48px;display:flex;align-items:center;justify-content:center;
   font-size:13px;text-decoration:none;color:var(--mute);
   border-bottom:2px solid transparent;padding:0 2px}
@@ -148,9 +148,24 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
 .gmap{margin:14px 0 8px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
 .gmap iframe{display:block;width:100%;height:min(62vh,520px);border:0}
 .gmap-link{display:inline-block;margin:0 0 18px;font-size:14px}
+.culture-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.culture-jump a{border:1px solid var(--line);border-radius:999px;background:var(--card);padding:7px 12px;text-decoration:none;font-size:13px;color:var(--navy)}
+.culture-story{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:0 0 16px}
+.culture-story:nth-of-type(even) .culture-photo{order:2}
+.culture-photo{margin:0;position:relative;min-height:260px;background:#e9e2d4}
+.culture-photo img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block;cursor:zoom-in}
+.culture-photo figcaption{position:absolute;left:10px;bottom:10px;border-radius:8px;padding:3px 8px;color:#fff;background:rgba(26,23,20,.78);font-size:11px}
+.culture-copy{padding:22px 24px 18px}
+.culture-kicker{font:700 12px Karla,"Noto Sans SC",sans-serif;color:var(--maple);letter-spacing:.08em;margin:0 0 5px}
+.culture-copy h3{font-family:"Noto Serif SC",serif;font-size:21px;line-height:1.4;margin:0 0 10px}
+.culture-copy p{font-size:14px;line-height:1.9;margin:0 0 10px}
+.culture-copy .look{border-left:3px solid var(--gold);padding:4px 0 4px 12px;color:var(--navy);background:#faf6ee}
+.culture-copy .source{font-size:12px;color:var(--mute);margin-top:12px}
+.culture-short{grid-template-columns:minmax(0,31%) minmax(0,1fr)}
+.culture-short .culture-photo,.culture-short .culture-photo img{min-height:210px}
 .foot{font-size:12px;color:var(--mute);margin-top:16px}
 @media (max-width:768px){
-  .tabs a{font-size:12px}
+  .tabs a{font-size:11px}
   .stats,.grid3,.sum-nights,.cal{grid-template-columns:1fr 1fr}
   .flights{grid-template-columns:1fr}
   .todo{grid-template-columns:28px 1fr; }
@@ -164,6 +179,10 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   .guide-grid p:nth-last-child(2){border-bottom:1px solid #e5e9e0}
   .who input{width:46%}
   .gmap iframe{height:70vh}
+  .culture-story,.culture-short{grid-template-columns:1fr}
+  .culture-story:nth-of-type(even) .culture-photo{order:0}
+  .culture-photo,.culture-photo img,.culture-short .culture-photo,.culture-short .culture-photo img{min-height:0;height:205px}
+  .culture-copy{padding:17px 18px 14px}
   .cmp-table,.cmp-table thead,.cmp-table tbody,.cmp-table tr,.cmp-table th,.cmp-table td{display:block;width:100%}
   .cmp-table thead{display:none}
   .cmp-table tr{padding:12px;border-bottom:1px solid var(--line)}
@@ -184,6 +203,7 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
     <a href="#overview" class="on">总览</a>
     <a href="#flights">已购票</a>
     <a href="#plan">日程</a>
+    <a href="#culture">人文</a>
     <a href="#stay">住宿</a>
     <a href="#note">其他</a>
   </nav>
@@ -519,6 +539,77 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   </article>
 </section>
 
+<section id="culture">
+  <h2>沿途人文 · 带着故事看风景</h2>
+  <p class="h2sub">按实际到访顺序读。每段先讲一件值得记住的事，再给一个到现场能看见的细节；配图沿用本行程的实景图片。点击图片可放大。</p>
+  <nav class="culture-jump" aria-label="沿途人文目录">
+    <a href="#culture-toyama">富山</a><a href="#culture-tateyama">立山黑部</a><a href="#culture-kamikochi">上高地</a><a href="#culture-norikura">乘鞍</a><a href="#culture-matsumoto">松本</a><a href="#culture-tokyo">东京</a>
+  </nav>
+
+  <article class="culture-story" id="culture-toyama">
+    <figure class="culture-photo"><img src="assets/d1-toyama.jpg" alt="富山城市景观" loading="lazy"><figcaption>10/1 · 富山</figcaption></figure>
+    <div class="culture-copy">
+      <p class="culture-kicker">01 / 海与山之间</p><h3>富山：药盒、玻璃与海湾的味道</h3>
+      <p>富山不只是翻越立山前的一站。这里长期以卖药闻名：行商把药放进各地人家，等下次来访时再按用掉的份量收钱。制药所需的玻璃容器，也让玻璃工艺在富山扎下根；今天的玻璃美术馆，是这段老手艺的现代版本。</p>
+      <p>晚餐若见到白虾，可以想起富山湾的渔业。它被称作“富山湾的宝石”，也是这里把山、河与海连接起来的一口鲜味。你们抵达时间较晚，不必为文化景点专程绕路，先在车站附近吃一顿当地料理。</p>
+      <p class="look"><b>到了现场看：</b>车站商店里留意玻璃工艺品、鱒寿司和白虾料理；这些比赶景点更贴合第一晚的节奏。</p>
+      <p class="source">延伸阅读：<a href="https://visit-toyama-japan.com/en/travel-inspiration/design-in-toyama" target="_blank" rel="noopener">富山官方旅游 · 工艺与设计</a> · <a href="https://visit-toyama-japan.com/en/travel-inspiration/toyama-gourmet" target="_blank" rel="noopener">富山饮食</a></p>
+    </div>
+  </article>
+
+  <article class="culture-story" id="culture-tateyama">
+    <figure class="culture-photo"><img src="assets/d3-mikurigaike.jpg" alt="立山室堂微库里池" loading="lazy"><figcaption>10/2 · 室堂微库里池</figcaption></figure>
+    <div class="culture-copy">
+      <p class="culture-kicker">02 / 圣山与工程</p><h3>立山黑部：一次翻山，看到两种日本</h3>
+      <p>立山很早就是山岳信仰中的圣山。过去进山，意味着敬畏地面对雪、岩石和火山地形；如今从富山到长野，一路换缆车、巴士、索道与电动巴士，游客也能跨过山脉。整条立山黑部阿尔卑斯路线在 1971 年贯通，这些交通设施本身就是值得看的工程作品。</p>
+      <p>室堂的微库里池让人感到山的安静；另一侧的黑部水坝，则把山里的水转化为现代社会所需的能源。一天内从宗教想象走到工业建设，是这条路线有意思的地方。翻山当天仍应优先保证接驳，不为拍照错过下山交通。</p>
+      <p class="look"><b>到了现场看：</b>室堂先看微库里池与山体地形；乘索道时看深谷，走过水坝时再回望这套山地交通如何衔接。</p>
+      <p class="source">延伸阅读：<a href="https://www.alpen-route.com/en/development/" target="_blank" rel="noopener">立山黑部官方 · 开发史</a> · <a href="https://www.alpen-route.com/en/how-to-enjoy/landmarks/" target="_blank" rel="noopener">沿线地标</a></p>
+    </div>
+  </article>
+
+  <article class="culture-story" id="culture-kamikochi">
+    <figure class="culture-photo"><img src="assets/d6-kamikochi.jpg" alt="上高地山谷风景" loading="lazy"><figcaption>10/3 · 上高地</figcaption></figure>
+    <div class="culture-copy">
+      <p class="culture-kicker">03 / 山路怎样成为风景</p><h3>上高地：从进山谋生，到为了山而来</h3>
+      <p>如今沿梓川散步很轻松，但当地人过去进山，更多是为狩猎、伐木或信仰。19 世纪末，英国人沃尔特·韦斯顿在当地向导上條嘉門次带领下走进北阿尔卑斯，并通过著作向世界介绍这里。山也逐渐成为人们愿意专程来欣赏、攀登和保护的地方。</p>
+      <p>所以河童桥的意义不只是一张明信片：桥、河流与穗高连峰，构成了日本近代登山文化最容易辨认的画面。如果实际路线经过韦斯顿碑，可以停下来想一想：没有熟悉山的人，外来登山者便无法读懂这片地形。</p>
+      <p class="look"><b>到了现场看：</b>从河童桥看梓川与穗高；若按当天路线经过韦斯顿碑，再读碑旁介绍。不要为绕行影响 16:40 的返程票。</p>
+      <p class="source">延伸阅读：<a href="https://www.kamikochi.or.jp/learn/about/" target="_blank" rel="noopener">上高地官方 · 历史</a> · <a href="https://www.kamikochi.or.jp/learn/spots/1267/" target="_blank" rel="noopener">韦斯顿碑</a></p>
+    </div>
+  </article>
+
+  <article class="card" id="culture-norikura" style="margin:0 0 16px;background:#eef3ea">
+    <p class="culture-kicker">04 / 一条不能随意开车的山路</p><h3 style="font-family:'Noto Serif SC',serif;font-size:20px">乘鞍：把公路留给山，也把山留给人</h3>
+    <p>从乘鞍高原往畳平的 Echo Line，私家车在高海拔路段受到限制，游客主要乘接驳车上山。班车将人带到约 2700 米高度，既让普通游客接近高山，也提醒人们这里仍受天气和道路状况支配。它和前一天的上高地一样，值得留意“怎样进入自然”这件事。</p>
+    <p class="look"><b>到了现场看：</b>沿车窗观察植被随海拔变矮；到了畳平只按天气和体力选短线，不把登顶当作必须完成的任务。</p>
+    <p class="source">延伸阅读：<a href="https://norikura.gr.jp/en/norikuradake/" target="_blank" rel="noopener">乘鞍观光协会 · 乘鞍岳与 Echo Line</a></p>
+  </article>
+
+  <article class="culture-story" id="culture-matsumoto">
+    <figure class="culture-photo"><img src="assets/d7-matsumoto.jpg" alt="松本城外观" loading="lazy"><figcaption>10/5 · 松本城</figcaption></figure>
+    <div class="culture-copy">
+      <p class="culture-kicker">05 / 一座被留下来的城</p><h3>松本：黑色天守里，藏着市民的选择</h3>
+      <p>松本城起于战国时代，现存天守是日本少见的古城原构之一：外面看五层，里面实际有六层。它不是后来为了观光新造的一座城。明治时期废藩之后，城一度面临拆除，最终靠当地人的保存努力留下来。</p>
+      <p>走入天守，比看外观更能明白它原本的用途：陡峭楼梯、狭窄通道和防御设施都服务于战时需求。城下的街道则延续了日常生活；如果上午时间宽裕，绳手通或中町通短走一段就够了。</p>
+      <p class="look"><b>到了现场看：</b>先绕护城河看黑色外墙与倒影，再进天守观察“外五内六”的层数差异；按下午去新宿的车次控制排队时间。</p>
+      <p class="source">延伸阅读：<a href="https://www.matsumoto-castle.jp/eng/about" target="_blank" rel="noopener">松本城官方 · 历史与结构</a></p>
+    </div>
+  </article>
+
+  <article class="culture-story culture-short" id="culture-tokyo">
+    <figure class="culture-photo"><img src="assets/d2-ginza.jpg" alt="东京银座街景" loading="lazy"><figcaption>10/6 · 银座</figcaption></figure>
+    <div class="culture-copy">
+      <p class="culture-kicker">06 / 购物日也可以读城市</p><h3>银座：从砖街到橱窗</h3>
+      <p>银座的“新潮”有历史。1872 年大火后，明治政府把这里改建成有宽阔街道、砖造建筑和煤气灯的近代街区。随后铁路、百货店和咖啡馆聚集，逛银座本身渐渐变成一种都市体验。今天购物时，不妨抬头看看街道尺度、老店与新建筑如何并排。</p>
+      <p class="look"><b>到了现场看：</b>经过银座四丁目路口时留意建筑立面与街角；购物清单仍按行程优先。</p>
+      <p class="source">延伸阅读：<a href="https://www.ginza.jp/en/history" target="_blank" rel="noopener">GINZA OFFICIAL · 银座历史</a></p>
+    </div>
+  </article>
+
+  <div class="callout"><b>御殿场只留一句</b>10/7 主要是奥莱购物日。它位于富士山一带，若天气好可远望山体；能否看见完全取决于云量。把时间留给往返巴士、吃饭和挑选真正想买的东西。</div>
+</section>
+
 <section id="stay">
   <h2>住宿 · 已订订单</h2>
   <p class="h2sub">富山 1 晚、松本 3 晚、东京 3 晚已订。东京是整套 Airbnb，不按酒店双人间计算；房型和实际金额以各订单为准。</p>
@@ -626,7 +717,7 @@ const io=new IntersectionObserver(ents=>{
 },{rootMargin:'-12% 0px -70% 0px'});
 document.querySelectorAll('section[id]').forEach(x=>io.observe(x));
 const lb=document.getElementById('lb');
-document.querySelectorAll('.hero img, .day img, img.gallery').forEach(im=>im.addEventListener('click',()=>{
+document.querySelectorAll('.hero img, .day img, img.gallery, .culture-photo img').forEach(im=>im.addEventListener('click',()=>{
   lb.querySelector('img').src=im.src; lb.querySelector('img').alt=im.alt; lb.classList.add('show');
 }));
 lb.addEventListener('click',()=>lb.classList.remove('show'));
