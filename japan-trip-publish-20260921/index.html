@@ -54,6 +54,12 @@ h1{font-family:"Noto Serif SC",serif;font-size:clamp(26px,6vw,40px);line-height:
 .cal .m i{background:var(--moss)} .cal .r i{background:var(--maple)}
 .cal b{display:block;font-size:13px} .cal em{font-style:normal;font-size:11px;color:var(--mute)}
 section[id]{scroll-margin-top:var(--chrome);padding:10px 0 22px}
+.booking-block{scroll-margin-top:calc(var(--chrome) + 8px);margin:24px 0 0}
+.booking-block h3.block-title{font-family:"Noto Serif SC",serif;font-size:21px;margin:0 0 6px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0 18px}
+.choice-grid .card{height:100%}
+.choice-grid .card h3{font-family:"Noto Serif SC",serif;font-size:18px}
+.choice-grid .card p:last-child{margin-bottom:0}
 h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
 .h2sub{margin:0 0 14px;color:var(--mute);font-size:14px}
 .callout{border-left:4px solid var(--gold);background:var(--card);padding:14px 16px;border-radius:0 12px 12px 0;margin:0 0 16px}
@@ -163,10 +169,16 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
 .culture-copy .source{font-size:12px;color:var(--mute);margin-top:12px}
 .culture-short{grid-template-columns:minmax(0,31%) minmax(0,1fr)}
 .culture-short .culture-photo,.culture-short .culture-photo img{min-height:210px}
+.shop-route{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 18px}
+.shop-route article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.shop-route b{display:block;color:var(--navy);font-size:14px}
+.shop-route p{margin:5px 0 0;color:var(--mute);font-size:13px}
+.shop-list{margin:8px 0 0;padding-left:20px;color:var(--mute);font-size:14px}
+.shop-list li{margin:6px 0}
 .foot{font-size:12px;color:var(--mute);margin-top:16px}
 @media (max-width:768px){
-  .tabs a{font-size:11px}
-  .stats,.grid3,.sum-nights,.cal{grid-template-columns:1fr 1fr}
+  .tabs a{font-size:10px}
+  .stats,.grid3,.sum-nights,.cal,.choice-grid{grid-template-columns:1fr 1fr}
   .flights{grid-template-columns:1fr}
   .todo{grid-template-columns:28px 1fr; }
   .t-act{grid-column:2;flex-direction:row;flex-wrap:wrap}
@@ -183,6 +195,7 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   .culture-story:nth-of-type(even) .culture-photo{order:0}
   .culture-photo,.culture-photo img,.culture-short .culture-photo,.culture-short .culture-photo img{min-height:0;height:205px}
   .culture-copy{padding:17px 18px 14px}
+  .choice-grid,.shop-route{grid-template-columns:1fr}
   .cmp-table,.cmp-table thead,.cmp-table tbody,.cmp-table tr,.cmp-table th,.cmp-table td{display:block;width:100%}
   .cmp-table thead{display:none}
   .cmp-table tr{padding:12px;border-bottom:1px solid var(--line)}
@@ -201,11 +214,11 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
 <div class="chrome">
   <nav class="tabs" aria-label="页面导航">
     <a href="#overview" class="on">总览</a>
-    <a href="#flights">已购票</a>
     <a href="#plan">日程</a>
-    <a href="#culture">人文</a>
-    <a href="#stay">住宿</a>
-    <a href="#note">其他</a>
+    <a href="#planb">雨天备选</a>
+    <a href="#culture">人文·美食</a>
+    <a href="#shopping">购物</a>
+    <a href="#bookings">预订与准备</a>
   </nav>
 </div>
 <div class="wrap">
@@ -233,7 +246,7 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
     <a href="#d1"><i>1</i><b>10/1 周四</b><em>关西 → 富山</em></a>
     <a href="#d2" class="m"><i>2</i><b>10/2 周五</b><em>立山黑部</em></a>
     <a href="#d3" class="m"><i>3</i><b>10/3 周六</b><em>上高地</em></a>
-    <a href="#d4" class="m"><i>4</i><b>10/4 周日</b><em>乗鞍</em></a>
+    <a href="#d4" class="m"><i>4</i><b>10/4 周日</b><em>乘鞍 · 待选强度</em></a>
     <a href="#d5"><i>5</i><b>10/5 周一</b><em>松本 → 都立家政</em></a>
     <a href="#d6"><i>6</i><b>10/6 周二</b><em>银座</em></a>
     <a href="#d7"><i>7</i><b>10/7 周三</b><em>御殿场</em></a>
@@ -268,71 +281,11 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   <a class="gmap-link" href="https://www.google.com/maps/d/viewer?mid=1lFceAEsui0dKJ1rMqycE2l1nn5OM5bQ&usp=sharing" target="_blank" rel="noopener">在 Google 地图打开（可导航）</a>
 </section>
 
-<section id="flights">
-  <h2>已购交通</h2>
-  <p class="h2sub">两段航班、10/2 富山→扇泽贯通票及 10/3 上高地去程巴士、返程巴士＋电车联票均已购，均为 4 人。以订单及电子票为准。</p>
-  <div class="flights">
-    <article class="flight">
-      <div class="leg">第一程 · 10/1 周四 · 全程 2 小时 20 分</div>
-      <h3>乐桃航空 MM80</h3>
-      <div class="times">
-        <div><b>06:15</b><span>PVG 上海浦东 T2</span></div>
-        <div class="arrow">空客 320<br>无餐食</div>
-        <div style="text-align:right"><b>09:35</b><span>KIX 关西 T2</span></div>
-      </div>
-      <p class="meta">建议 <strong>4:00 前到浦东 T2</strong>。9/30 住机场附近。入境+取箱按 60–90 分钟留。</p>
-    </article>
-    <article class="flight">
-      <div class="leg">第二程 · 10/8 周四 · 全程 3 小时 5 分</div>
-      <h3>吉祥航空 HO1380</h3>
-      <div class="times">
-        <div><b>13:20</b><span>NRT 东京成田 T2</span></div>
-        <div class="arrow">波音 787<br>有餐食</div>
-        <div style="text-align:right"><b>15:25</b><span>PVG 上海浦东 T2</span></div>
-      </div>
-      <p class="meta">建议 <strong>10:30 前到成田 T2</strong>。从都立家政经高田马场、日暮里换 Skyliner，门到门约 90–110 分钟；10/8 早上 07:30–07:45 从住处出发，购票后复核时刻。浦东落地后回杭州另安排。</p>
-    </article>
-    <article class="flight rail">
-      <div class="leg">已购车票 · 10/2 周五 · 单程贯通 · 4 人</div>
-      <h3>富山地铁でゴー！WEB 车票</h3>
-      <div class="ticket-grid">
-        <div><b>08:20</b><span>电铁富山出发</span></div>
-        <div><b>09:28</b><span>抵达立山站</span></div>
-        <div><b>09:50</b><span>立山缆车指定出发</span></div>
-        <div><b>4 人</b><span>订单已确认</span></div>
-      </div>
-      <p class="meta"><strong>区间：</strong>电铁富山 → 扇泽；订单人数 4 人，包含订单所列的 08:20 出发座位保证项目。09:50 是立山站缆车时间，扇泽之后前往信浓大町、松本的交通需另买。<a href="https://www.alpen-route.com/_wp/information/141393" target="_blank" rel="noopener">查看该票种官方说明</a></p>
-    </article>
-    <article class="flight rail">
-      <div class="leg">已购车票 · 10/3 周六 · 单程 · 4 人</div>
-      <h3>新岛岛 → 上高地 · Alpico 巴士</h3>
-      <div class="ticket-grid">
-        <div><b>08:00</b><span>新岛岛出发</span></div>
-        <div><b>08:54</b><span>途经大正池</span></div>
-        <div><b>09:05</b><span>上高地到达</span></div>
-        <div><b>¥12,400</b><span>四人总额 · 已付款</span></div>
-      </div>
-      <p class="meta">电子票显示 02 号车、4 名成人。建议提前到站并向司机出示电子票；原计划从大正池徒步，出票终点是上高地，请在出发前向运营方确认能否在大正池提前下车。<a href="https://www.alpico.co.jp/traffic/local/kamikochi/shinshimashima/" target="_blank" rel="noopener">查看官方时刻</a></p>
-    </article>
-    <article class="flight rail">
-      <div class="leg">已购联票 · 10/3 周六 · 返程 · 4 人</div>
-      <h3>上高地 → 松本 · 巴士＋电车</h3>
-      <div class="ticket-grid">
-        <div><b>16:40</b><span>上高地出发</span></div>
-        <div><b>新岛岛</b><span>转乘上高地线电车</span></div>
-        <div><b>18:29</b><span>松本到达</span></div>
-        <div><b>¥15,240</b><span>四人总额 · 已付款</span></div>
-      </div>
-      <p class="meta">日本巴士在线电子票显示 02 号车、4 名成人，终点为松本，途中在新岛岛换乘电车。提前到上高地乘车点，向司机出示电子票，并核对换乘指引；返程以本票 16:40 出发为准。</p>
-    </article>
-  </div>
-</section>
-
 <section id="plan">
   <h2>每天怎么走</h2>
   <div class="callout ok"><b>已购交通</b>10/2 电铁富山 08:20、立山站缆车 09:50；10/3 去程新岛岛 08:00→上高地 09:05，返程上高地 16:40→松本 18:29（巴士＋电车联票），均为四人。立山票只到扇泽。</div>
   <div class="callout"><b>时间表说明</b>航班和上列山地交通为订单时间；其余时段为规划窗口，车次尚待购买及出发前复核。入境、山区天气及高速堵车可能改变实际到达。</div>
-  <div class="callout warn"><b>每日备注怎么看</b>每天下方可展开「当天提醒」，分别看天气、穿搭、携带物、餐食、可逛与可买。天气是 10 月上旬的季节准备建议，不是 2026 年当天预报；出发前 48 小时复核，山地三天每天早晨再查交通运行。</div>
+  <div class="callout warn"><b>每日备注怎么看</b>每天下方可展开「当天提醒」，分别看天气、穿搭、携带物、餐食、可逛与可买。天气是季节准备建议，不是当天预报；山地三天每天早晨再查交通运行。若天气不好，直接看<a href="#planb">天气 Plan B</a>。</div>
   <div class="sum-nights">
     <div><b>1 晚</b><span>浦东 · 9/30</span></div>
     <div><b>1 晚</b><span>富山 · 10/1</span></div>
@@ -418,6 +371,12 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
       <div class="step"><time>16:40<small>→ 18:29</small></time><span class="dot"></span><div><b>上高地 → 新岛岛 → 松本 · 联票已购</b><p><span class="mode">Alpico 巴士＋上高地线电车 · 全程 1 小时 49 分</span>电子票终点为松本，新岛岛换乘电车；按票面和现场指引乘车。</p></div></div>
       <div class="step"><time>18:45<small>→ 19:45</small></time><span class="dot"></span><div><b>松本晚餐</b><p>信州荞麦面约 1 小时；同一酒店连住。</p></div></div>
     </div>
+    <details class="day-guide"><summary>深度徒步选项 · 河童桥—明神—德泽往返</summary><div class="guide-grid">
+      <p><b>09:05–10:30</b>在上高地巴士总站下车，先到河童桥，再沿梓川走向明神；这一版不要先绕大正池。</p>
+      <p><b>10:30–12:00</b>由明神继续走到德泽。官方估计河童桥到德泽往返约 4–5 小时，实际按四人中最慢的速度。</p>
+      <p><b>12:00–14:30</b>德泽午餐后原路返回河童桥。带水和可即食午餐，遇雨或有人疲劳就在明神折返。</p>
+      <p><b>14:30–16:40</b>河童桥附近休息，最晚 15:50 往巴士总站走，保住已购的 16:40 返程联票。这是较长的河谷徒步，并非登顶。</p>
+    </div><p class="foot" style="margin:0 14px 14px"><a href="https://www.kamikochi.org/thingstodo/walking" target="_blank" rel="noopener">上高地官方步行路线与时间</a></p></details>
     <details class="day-guide"><summary>当天提醒 · 步道选择与 16:40 返程</summary><div class="guide-grid">
       <p><b>天气</b>清晨河谷可冷且多雾；实际温度和雨势出发前再查，不能按松本市区穿衣。</p>
       <p><b>穿什么</b>长袖＋保暖层＋防风外套，防滑好走的鞋；今天步行时间较长。</p>
@@ -429,23 +388,30 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   </article>
 
   <article class="day" id="d4">
-    <img class="gallery" src="assets/d5-ropeway.jpg" alt="高原缆车" style="width:100%;height:210px;object-fit:cover;display:block;cursor:zoom-in">
-    <div class="day-h"><span class="n">D4</span><h3>乗鞍 · 高处看秋色</h3><span class="stay">住 松本</span></div>
+    <div class="day-h"><span class="n">D4</span><h3>乘鞍 · 晚起短游 / 剑峰登顶待选</h3><span class="stay">住 松本</span></div>
     <div class="steps">
-      <div class="step"><time>07:15<small>→ 07:49</small></time><span class="dot"></span><div><b>松本 → 新岛岛</b><p><span class="mode">上高地线电车 · 34 分</span>08:00 换巴士；出门前查看乘鞍岳道路和班车运行情况。</p></div></div>
-      <div class="step"><time>08:00<small>→ 08:57</small></time><span class="dot"></span><div><b>新岛岛 → 乘鞍高原观光中心</b><p><span class="mode">路线巴士 · 57 分</span>抵达后有约 30 分钟换高原接驳车。</p></div></div>
-      <div class="step"><time>09:30<small>→ 10:25</small></time><span class="dot"></span><div><b>高原观光中心 → 畳平 · 待订</b><p><span class="mode">乘鞍岳接驳巴士 · 55 分</span>往返尚无已购凭证，订妥后复核天气、道路和实际发车时刻。</p></div></div>
-      <div class="step"><time>10:25<small>→ 12:25</small></time><span class="dot"></span><div><b>畳平轻徒步与午餐</b><p><span class="mode">徒步 · 约 2 小时</span>高原观景、短步道、轻食和休息；不安排剑峰登顶。山上寒冷、风大，视天气缩短。</p></div></div>
-      <div class="step"><time>12:30<small>→ 13:25</small></time><span class="dot"></span><div><b>畳平 → 乘鞍高原观光中心</b><p><span class="mode">接驳巴士 · 55 分</span>建议预约 12:30 下山车；回到观光中心后约 40 分钟转车。</p></div></div>
-      <div class="step"><time>14:07<small>→ 15:16</small></time><span class="dot"></span><div><b>乘鞍高原观光中心 → 新岛岛</b><p><span class="mode">路线巴士 · 69 分</span>预留 9 分钟换乘 15:25 电车。</p></div></div>
-      <div class="step"><time>15:25<small>→ 15:55</small></time><span class="dot"></span><div><b>新岛岛 → 松本</b><p><span class="mode">上高地线电车 · 30 分</span>傍晚休息、晚饭和整理次日行李；如改晚班，须同步调整前段接驳。</p></div></div>
+      <div class="step"><time>08:30<small>→ 09:40</small></time><span class="dot"></span><div><b>睡到自然醒、早餐、退好随身包</b><p>约 09:40 从万屋酒店出发，步行去松本站；比原方案晚近 3 小时。若 10:10 电车没赶上，今天不再硬上畳平。</p></div></div>
+      <div class="step"><time>10:10<small>→ 10:40</small></time><span class="dot"></span><div><b>松本 → 新岛岛</b><p><span class="mode">上高地线电车 · 30 分</span>接 10:50 去乘鞍高原的巴士；上车前查道路与班车运行。</p></div></div>
+      <div class="step"><time>10:50<small>→ 11:53</small></time><span class="dot"></span><div><b>新岛岛 → 乘鞍高原观光中心</b><p><span class="mode">路线巴士 · 63 分</span>换乘畳平接驳前，先吃午饭、上洗手间，留好候车时间。</p></div></div>
+      <div class="step"><time>12:45<small>→ 13:40</small></time><span class="dot"></span><div><b>观光中心 → 畳平 · 待订</b><p><span class="mode">乘鞍岳接驳巴士 · 55 分</span>上山班车为预约优先；10/4 去回都要确认有位。出发前复核天气、道路与实际时刻。</p></div></div>
+      <div class="step"><time>13:40<small>→ 14:45</small></time><span class="dot"></span><div><b>畳平短游</b><p>只走站区或魔王岳方向一条短线，留出拍照、休息和回站时间；不安排剑峰登顶。若风大、结冰或身体不适，就不走山路。</p></div></div>
+      <div class="step"><time>15:00<small>→ 15:55</small></time><span class="dot"></span><div><b>畳平 → 乘鞍高原观光中心</b><p><span class="mode">接驳巴士 · 55 分</span>建议选 15:00 下山，给回松本留下一班衔接。若想在畳平多待 50 分钟，可改 15:50 下山，但会接当天更晚的末段巴士。</p></div></div>
+      <div class="step"><time>16:06<small>→ 17:51</small></time><span class="dot"></span><div><b>观光中心 → 新岛岛 → 松本</b><p><span class="mode">巴士 16:06–17:09＋电车 17:22–17:51</span>回松本吃晚饭、整理次日去东京的行李。若选 15:50 下山车，则改接 17:06 巴士＋18:00 电车，18:29 到松本。</p></div></div>
     </div>
+    <div class="callout" style="margin:0 16px 16px"><b>更轻松的同日选项</b>若大家想睡到 10 点后，就不建议上畳平：12:09 从松本出发，最快 15:35 才到畳平，而最后一班 15:50 就下山。可保留 10:10 电车，只玩乘鞍高原低海拔步道与午餐，16:06 巴士回松本；山路停运时改<a href="#planb">松本市内 Plan B</a>。<a href="https://www.alpico.co.jp/traffic/datas/files/2026/05/06/ae14008dc5b4b74025bca9e229057b65b05ab075.pdf" target="_blank" rel="noopener">查看 Alpico 2026 官方时刻表</a></div>
+    <details class="day-guide"><summary>想真正登顶？剑峰 3026 米 · 需要改成早出发</summary><div class="guide-grid">
+      <p><b>07:15–10:25</b>松本电车 07:15 → 新岛岛 07:49；巴士 08:00 → 乘鞍高原 09:03；预约优先接驳 09:30 → 畳平 10:25。</p>
+      <p><b>10:35–14:15</b>畳平 → 剑峰 → 畳平。官方登顶往返约 3 小时，另留拍照、休息和碎石路缓冲；别把 14:00 下山车当唯一退路。</p>
+      <p><b>15:00–17:51</b>预约 15:00 下山接驳 → 15:55 乘鞍高原；16:06 巴士 → 17:09 新岛岛；17:22 电车 → 17:51 松本。</p>
+      <p><b>启用条件</b>四人都愿意早起并有体力；带防滑登山鞋、保暖层、防风雨外套、帽手套、水和食物。山顶约 3000 米，若有结冰、强风、降雪或班车停运就取消登顶。</p>
+    </div><p class="foot" style="margin:0 14px 14px"><a href="https://norikura.gr.jp/en/2026/06/mt-norikura-echo-line-shuttle-bus/" target="_blank" rel="noopener">乘鞍观光协会 · 登顶时间与班车提醒</a> · <a href="https://www.alpico.co.jp/traffic/datas/files/2026/05/06/ae14008dc5b4b74025bca9e229057b65b05ab075.pdf" target="_blank" rel="noopener">Alpico 2026 时刻表</a> · <a href="https://norikura.gr.jp/en/2021/07/wear/" target="_blank" rel="noopener">官方装备建议</a></p></details>
+    <div class="callout warn" style="margin:0 16px 16px"><b>四人还没决定 D4 玩法</b>乘鞍山景与 10/2 立山的高海拔景观有一定重合。若 10/3 上高地走了德泽长线、四人觉得累，D4 留在松本休息或去东京更合适；不要把剑峰登顶和晚起短游两套时间轴拼在一起。乘鞍去返接驳尚未订票。</div>
     <details class="day-guide"><summary>当天提醒 · 畳平更冷，先看停运信息</summary><div class="guide-grid">
       <p><b>天气</b>畳平约 2700 米，风大时体感很冷；积雪、结冰或恶劣天气会让班车停运。早晨先看官方公告。</p>
       <p><b>穿什么</b>三天山地行程里按最冷的一天准备：保暖中层、羽绒、防风外壳、帽子和手套。</p>
-      <p><b>带什么</b>热水、高热量零食、墨镜、防晒及电子票；畳平往返接驳仍待订，去回需分别确认。</p>
-      <p><b>吃什么</b>山上用自带轻食保底；回松本可试山贼烧或信州料理。</p>
-      <p><b>逛什么</b>畳平只选一条短步道，如魔王岳或大黑岳方向；沿线看桦树、花楸秋色，有风雨或结冰就留在站区。</p>
+      <p><b>带什么</b>热水、高热量零食、墨镜、防晒及电子票；畳平去回接驳为预约优先，务必确认座位。</p>
+      <p><b>吃什么</b>午餐放在 11:53–12:35 的乘鞍高原观光中心；畳平仅带轻食和水，回松本可试山贼烧。</p>
+      <p><b>逛什么</b>畳平只选一条短步道，如魔王岳方向；若想慢慢散步、泡汤或看秋色，改玩乘鞍高原更适合晚起。</p>
       <p><b>买什么</b>今天不排购物；若山路停运，改乘鞍高原低海拔散步或回松本休息。</p>
     </div></details>
   </article>
@@ -502,7 +468,8 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
       <div class="step"><time>08:15 左右<small>→ 10:05 左右</small></time><span class="dot"></span><div><b>新宿 → 御殿场奥莱 · 待订</b><p><span class="mode">直达高速巴士 · 官方参考约 1 小时 50 分</span>这是规划窗口，非已确认班次；按实际订票时刻调整，遇堵车再留余量。</p></div></div>
       <div class="step"><time>10:15<small>→ 12:30</small></time><span class="dot"></span><div><b>奥莱购物第一段</b><p>约 2 小时 15 分，先去清单上的重点店。</p></div></div>
       <div class="step"><time>12:30<small>→ 13:30</small></time><span class="dot"></span><div><b>奥莱午饭</b><p>约 1 小时；富士山视天气看，不单独等云散。</p></div></div>
-      <div class="step"><time>13:30<small>→ 17:00</small></time><span class="dot"></span><div><b>奥莱购物第二段</b><p>约 3.5 小时。回程上车前 20 分钟到 B 乘车处，确认购物袋和四人都到齐。</p></div></div>
+      <div class="step"><time>13:30<small>→ 16:20</small></time><span class="dot"></span><div><b>奥莱购物第二段 / 男生分组活动</b><p>购物组按品牌清单逛；不想购物的两人可去园区内木之花之汤。赛车博物馆或蒸馏所须另算往返时间，详见<a href="#planb">分组 Plan B</a>。</p></div></div>
+      <div class="step"><time>16:20<small>→ 16:50</small></time><span class="dot"></span><div><b>四人集合、整理购物袋</b><p>约在同一地点会合，确认返程巴士实际乘车处；至少给乘车留 30 分钟，若巴士时间有变化随订单调整。</p></div></div>
       <div class="step"><time>17:20 左右<small>→ 19:40 左右</small></time><span class="dot"></span><div><b>御殿场 → 新宿 · 待订</b><p><span class="mode">直达高速巴士 · 官方参考约 2 小时 20 分</span>回程时刻仍为规划窗口，实际班次及堵车情况以订单和当天交通为准。</p></div></div>
       <div class="step"><time>19:40<small>→ 20:30</small></time><span class="dot"></span><div><b>巴士新宿 → 都立家政</b><p><span class="mode">步行＋西武新宿线＋步行 · 约 45–55 分</span>带购物袋返回住处。</p></div></div>
       <div class="step"><time>20:30<small>→ 21:30</small></time><span class="dot"></span><div><b>晚餐、整理回程行李</b><p>核对航班行李额和次日去成田的列车时刻；晚归可提前备简餐。</p></div></div>
@@ -539,11 +506,23 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
   </article>
 </section>
 
+<section id="planb">
+  <h2>天气不好时 · Plan B</h2>
+  <p class="h2sub">先判断是“山里不适合玩，但市区交通正常”，还是“台风造成停运、道路封闭或避难提醒”。后者以安全和住宿为先，不把博物馆当作台风当天必须完成的项目。</p>
+  <div class="callout warn"><b>每天的决定时间</b>山地三天前晚查日本气象厅预警，出门前再查立山黑部、上高地及乘鞍的运行公告。若有暴雨、强风、道路封闭或避难信息，遵从运营方和酒店指引。<a href="https://www.jma.go.jp/jma/bosaiinfo/rain_portal.html" target="_blank" rel="noopener">气象厅</a> · <a href="https://www.alpen-route.com/en/" target="_blank" rel="noopener">立山黑部</a> · <a href="https://www.alpico.co.jp/traffic/trafficinfo/kamikochi/" target="_blank" rel="noopener">Alpico 运行信息</a></div>
+  <div class="choice-grid">
+    <article class="card"><span class="tag hot">10/2 · 必须先解决转场</span><h3>立山黑部停运怎么办</h3><p>若线路仍运行、只是云雾或小雨，减少室堂和水坝停留，优先穿越并赶上扇泽至松本的接驳。若翻山停运但铁路正常，改走<strong>富山→长野（北陆新干线）→松本（特急信浓或普通列车）</strong>，这天不再排景点，给换乘留半天。</p><p>若铁路也停运，留富山续住，联系松本万屋酒店说明迟到；若已进入山区才停运，按现场人员安排折返或等待。贯通票的退改按你们“电铁富山でゴー！WEB”订单条款向售票方确认，不套用其他票种的退款规则。<a href="https://global.trafficinfo.westjr.co.jp/en/h_shinkansen/" target="_blank" rel="noopener">北陆新干线运行</a> · <a href="https://traininfo.jreast.co.jp/train_info/line.aspx?gid=5&amp;lineid=shinonoiline" target="_blank" rel="noopener">篠之井线运行</a></p></article>
+    <article class="card"><span class="tag">10/3 · 上高地已购往返</span><h3>山里下雨，松本市内玩</h3><p>交通正常且市区适合出门时：09:30 松本市立博物馆 → 12:00 午餐 → 13:30 松本市立美术馆或钟表博物馆 → 傍晚按雨势短逛中町通。市立博物馆和钟表博物馆均为室内去处；美术馆请出门前确认当日展览及开放。</p><p>若 10/4 转晴，可考虑把上高地改到 10/4，原 10/3 的去程与返程联票要分别核对新票余位。线上票不能直接改日期，通常须取消重订；是否因停运有特殊处理，以售票平台当次公告为准。<a href="https://visit-nagano.alpico.co.jp/timetable/kamikochi-matsumoto" target="_blank" rel="noopener">Alpico 退改说明</a></p></article>
+    <article class="card"><span class="tag">10/4–10/5 · 保留弹性</span><h3>乘鞍不成行，怎么用这两天</h3><p>10/4 若晴，优先补前一天没去成的上高地；若仍是普通雨天，改松本城（仅小雨且入场安全时）、市立博物馆、钟表博物馆，或打车去日本浮世绘博物馆。中午吃信州荞麦面，晚上试山贼烧。</p><p>10/5 是去东京的转移日，不要把松本城留作唯一机会；下雨时直接吃早午饭、取行李去车站。若特急 AZUSA 停运，先查铁路公告，联系东京 Airbnb，并准备在松本续住。<a href="https://matsumoto-city-museum.jp/" target="_blank" rel="noopener">市立博物馆</a> · <a href="https://matsu-haku.com/tokei/info" target="_blank" rel="noopener">钟表博物馆</a> · <a href="https://www.japan-ukiyoe-museum.com/access/" target="_blank" rel="noopener">浮世绘博物馆交通</a></p></article>
+    <article class="card"><span class="tag rec">10/7 · 御殿场分组</span><h3>两位男生不想逛奥莱</h3><p><strong>最方便：</strong>到奥莱后去园区内的木之花之汤泡温泉、桑拿和休息，随后步行与购物组会合。官网目前列平日成人 ¥1,800，出行前复核价格。<a href="https://www.gotemba-konohananoyu.jp/" target="_blank" rel="noopener">木之花之汤</a></p><p><strong>喜欢车：</strong>打车往返富士赛车运动博物馆，含交通与参观预留约 3–4 小时。<strong>喜欢威士忌：</strong>预约麒麟富士御殿场蒸馏所；从奥莱先坐免费接驳到御殿场站，再按官方交通指引转乘，来回占半天。两组约好奥莱同一集合点，至少在返东京巴士前 45 分钟会合。台风影响高速巴士时，直接取消御殿场跨城日。<a href="https://fuji-motorsports-museum.jp/access/" target="_blank" rel="noopener">赛车博物馆</a> · <a href="https://www.kirin.co.jp/experience/factory/gotemba/" target="_blank" rel="noopener">蒸馏所预约</a></p></article>
+  </div>
+</section>
+
 <section id="culture">
   <h2>沿途人文 · 带着故事看风景</h2>
   <p class="h2sub">按实际到访顺序读。每段先讲一件值得记住的事，再给一个到现场能看见的细节；配图沿用本行程的实景图片。点击图片可放大。</p>
   <nav class="culture-jump" aria-label="沿途人文目录">
-    <a href="#culture-toyama">富山</a><a href="#culture-tateyama">立山黑部</a><a href="#culture-kamikochi">上高地</a><a href="#culture-norikura">乘鞍</a><a href="#culture-matsumoto">松本</a><a href="#culture-tokyo">东京</a>
+    <a href="#culture-toyama">富山</a><a href="#culture-tateyama">立山黑部</a><a href="#culture-kamikochi">上高地</a><a href="#culture-norikura">乘鞍</a><a href="#culture-matsumoto">松本</a><a href="#culture-tokyo">东京</a><a href="#culture-food">特色美食</a>
   </nav>
 
   <article class="culture-story" id="culture-toyama">
@@ -607,11 +586,127 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
     </div>
   </article>
 
-  <div class="callout"><b>御殿场只留一句</b>10/7 主要是奥莱购物日。它位于富士山一带，若天气好可远望山体；能否看见完全取决于云量。把时间留给往返巴士、吃饭和挑选真正想买的东西。</div>
+  <div class="booking-block" id="culture-food">
+    <h3 class="block-title">沿途特色美食 · 按能吃到的时间安排</h3>
+    <p class="h2sub">正餐优先安排在城市；山里以不耽误接驳为准。店铺营业、排队和季节食材以当天现场为准。</p>
+    <div class="choice-grid">
+      <article class="card"><span class="tag">10/1 · 富山晚餐</span><h3>白虾、富山湾寿司、黑拉面三选一</h3><p><strong>想吃海鲜：</strong>选白虾天丼或寿司。白虾可做刺身、炸物，10 月仍在当地通常的捕捞季；富山湾寿司可一次尝多种海鲜。<strong>想快吃：</strong>选黑拉面，酱油色深、口味偏浓，可按个人咸淡选择店铺。</p><p>你们约 16:00 到富山，先入住再在车站周边吃，别为网红店跨城排队。鱒寿司适合次日路上的便餐，买前看保存与食用期限。<a href="https://visit-toyama-japan.com/en/travel-inspiration/toyama-gourmet" target="_blank" rel="noopener">富山官方美食指南</a></p></article>
+      <article class="card"><span class="tag">10/2 · 立山黑部</span><h3>用饭团保住换乘时间</h3><p>富山站先买饭团、面包和水。室堂有餐饮时可吃荞麦面或简餐；水坝一侧可视停留时间尝当地主题咖喱。优先看下一段交通排队与末班时间，若晚点，把正式晚餐留到松本。</p></article>
+      <article class="card"><span class="tag">10/3–10/5 · 松本</span><h3>荞麦面、山贼烧、苹果</h3><p>松本至少留一顿<strong>信州荞麦面</strong>，午餐最合适；<strong>山贼烧</strong>是蒜香调味的炸鸡，适合从上高地回来后的晚餐。十月还可找当地苹果和苹果甜品。山里午餐别只依赖河童桥餐厅，周末自备饭团。</p><p>若天气改走市内 Plan B，可以把午餐放在博物馆与中町通之间，行程会更从容。<a href="https://visitmatsumoto.com/en/article/gourmet" target="_blank" rel="noopener">松本官方地方料理介绍</a></p></article>
+      <article class="card"><span class="tag">10/6–10/8 · 东京</span><h3>把吃饭放进购物节奏</h3><p>10/6 银座午餐选寿司定食、天丼或百货地下食品层熟食，排队超过 30 分钟就换一家，避免挤掉表参道时间。10/7 御殿场两组可分别吃，下午集合；10/8 早上带走早餐，抵达成田后先值机安检，再决定是否吃午餐。</p></article>
+    </div>
+  </div>
 </section>
 
-<section id="stay">
-  <h2>住宿 · 已订订单</h2>
+<section id="shopping">
+  <h2>购物建议 · 按天买，少走回头路</h2>
+  <p class="h2sub">把你贴的愿望清单按地点和行李负担重新排过。品牌、价格、库存及营业时间以到店当天为准；每人先选最想买的三件，其他随缘。</p>
+  <div class="callout warn"><b>登山装备要在出发前准备</b>东京购物安排在立山、上高地、乘鞍之后。登山鞋、防风雨外套、保暖层、帽手套与常用药需要从国内带好；10/6–10/7 买到的户外装备只能留作之后使用。</div>
+  <nav class="culture-jump" aria-label="购物建议目录"><a href="#shop-route">每天去哪买</a><a href="#shop-outdoor">户外与服饰</a><a href="#shop-beauty">护肤与湿敷水</a><a href="#shop-pharmacy">药妆与伴手礼</a><a href="#shop-rules">结账与行李</a></nav>
+  <div class="shop-route" id="shop-route">
+    <article><b>10/1 富山 · 少量</b><p>车站看白虾仙贝、地方小件；第二天翻山，暂不买玻璃或大瓶液体。<a href="https://visit-toyama-japan.com/en/travel-inspiration/omiyagematome" target="_blank" rel="noopener">富山伴手礼</a></p></article>
+    <article><b>10/3–10/5 松本 · 地方物</b><p>中町通看民艺、木工、陶器；苹果点心和信州味噌在离开前购买。<a href="https://visitmatsumoto.com/en/spot/detail_1082.html" target="_blank" rel="noopener">中町通</a></p></article>
+    <article><b>10/6 东京 · 正价店</b><p>银座集中买护肤、文具和百货品；表参道看户外品牌、设计师品牌。要比价的先记型号。<a href="https://www.gotokyo.org/en/destinations/central-tokyo/ginza/" target="_blank" rel="noopener">银座指南</a></p></article>
+    <article><b>10/7 御殿场 · 集中扫货</b><p>按官方地图找重点店，试穿和核对退换规则；10/8 成田只留零食补货。<a href="https://www.premiumoutlets.co.jp/en/gotemba/brands/" target="_blank" rel="noopener">官方店铺目录</a></p></article>
+  </div>
+  <div class="booking-block" id="shop-outdoor">
+    <h3 class="block-title">户外装备与服饰</h3>
+    <div class="choice-grid">
+      <article class="card"><span class="tag rec">10/6 · 表参道 / 原宿</span><h3>看新款，确定尺码</h3><p>你清单里的 Arc'teryx、Goldwin、Klättermusen 可作为探店目标。先查各品牌官方店铺页和当天营业时间；若只有 2.5 小时，最多选两家，不要为一家店跨区折返。记录准确型号、尺码和含税价格，隔天再与奥莱比。</p><p><a href="https://www.gotokyo.org/en/destinations/western-tokyo/aoyama-and-omotesando/" target="_blank" rel="noopener">东京官方 · 表参道街区</a></p></article>
+      <article class="card"><span class="tag rec">10/7 · 御殿场</span><h3>先找明确想买的，再逛折扣</h3><p>愿望清单可分为户外运动、鞋服和设计师品牌三组；Arc'teryx、Goldwin、lululemon、Prada、Loewe 等品牌是否在店，以当天官方目录为准。四人可分组，约定午餐与返程前的集合点。</p><p><a href="https://www.premiumoutlets.co.jp/en/gotemba/brands/" target="_blank" rel="noopener">御殿场店铺目录</a> · <a href="https://www.premiumoutlets.co.jp/gotemba/brands/pdf/gotemba.pdf" target="_blank" rel="noopener">园区地图</a></p></article>
+    </div>
+    <div class="callout"><b>买前检查</b>外套看版型、拉链、面料和退换条件；鞋要穿着走几分钟。折扣只与<strong>同款同尺码</strong>的实际到手价比较，别按吊牌折数做决定。</div>
+  </div>
+  <div class="booking-block" id="shop-beauty">
+    <h3 class="block-title">护肤与湿敷水 · 你的清单怎么取舍</h3>
+    <div class="choice-grid">
+      <article class="card"><span class="tag">药妆店</span><h3>大瓶补水，先选一种</h3><p>愿望清单：Naturie 薏仁水、肌研极润、菊正宗化妆水。若主要是湿敷，先看成分与肤感，再选一瓶；大瓶液体留到东京买，别背着它翻山。</p></article>
+      <article class="card"><span class="tag">专柜 / 百货</span><h3>想买再试，避免成套盲购</h3><p>愿望清单：IPSA 流金水、Albion 健康水、SK-II。油皮敏感的护肤需求先试样或买熟悉的产品；湿敷不是必须步骤，不把价格当成适合自己的证据。</p></article>
+      <article class="card"><span class="tag">日常护肤</span><h3>清洁和保湿分开选</h3><p>你贴的备选包括 Melano CC 洁面、suisai 酵素洗颜、Takami、珂润、IHADA、防晒。先补已用惯且快耗尽的洁面、保湿、防晒；功能型产品一次只加一种，别在旅途中同时试整套新品。</p></article>
+      <article class="card"><span class="tag">工具</span><h3>轻小物最后补</h3><p>化妆棉、压缩面膜、旅行分装用品可在药妆店顺手买。购买前确认行李液体限制和实际用量；不因为凑免税门槛买多瓶。</p></article>
+    </div>
+  </div>
+  <div class="booking-block" id="shop-pharmacy">
+    <h3 class="block-title">药妆、食品与伴手礼</h3>
+    <div class="choice-grid">
+      <article class="card"><span class="tag">药妆店</span><h3>按已知需求买常备品</h3><p>你列过的 EVE、太田胃散、龙角散、撒隆巴斯、暖宝宝等可以做查询清单。购买前看药品成分、适用人群与禁忌；已有用药或过敏情况向店内药师确认。旅途中要用的药和暖宝宝应从出发地带够。</p></article>
+      <article class="card"><span class="tag">松本 / 富山</span><h3>地方食品尽量轻、耐放</h3><p>富山可看白虾仙贝；松本可看苹果点心、味噌、芥末加工品。鲜食如鱒寿司适合途中吃，打算带回国的食品先查保质期、包装和入境规定。</p></article>
+      <article class="card"><span class="tag">10/8 · 成田</span><h3>机场只做最后补货</h3><p>零食和小件伴手礼放在完成值机、安检后选；液体、重量和托运行李额都按航班规则确认。不要把必须买的商品留到赶飞机时寻找。</p></article>
+      <article class="card"><span class="tag">四人分工</span><h3>先写清单，分组采购</h3><p>每人记录商品全名、规格、目标价和最多买几件；在银座或奥莱分头找货，集合时再决定是否回头购买。收据统一拍照，方便核对总额与行李重量。</p></article>
+    </div>
+  </div>
+  <div class="booking-block" id="shop-rules">
+    <h3 class="block-title">结账前看这四件事</h3>
+    <ul class="shop-list"><li><strong>护照：</strong>符合条件的免税店一般需出示护照原件。2026 年 10 月的购物规则请以国税厅和店方当天说明为准。</li><li><strong>免税包装：</strong>食品、药品和化妆品属于消耗品，购买后按店方要求保存包装，不要把免税品在日本使用或转售。</li><li><strong>价格：</strong>只记到手价；同款不同容量、奥莱专供款和正价款不能只看折扣百分比。</li><li><strong>行李：</strong>10/7 晚按四人各自航班额度称重，大件及液体确定托运方案；小票与商品清单集中保存。</li></ul>
+    <p class="foot"><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6559.htm" target="_blank" rel="noopener">日本国税厅 · 免税购物条件</a>。购物页中的品牌是愿望清单，不代表到店一定有货或价格一定更低。</p>
+  </div>
+</section>
+
+<section id="bookings">
+  <h2>预订与准备 · 一处查全</h2>
+  <p class="h2sub">已购交通、已订住宿、尚待购买的接驳、交通卡、网络、预算与行李集中在这里。每天的时间轴仍在“日程”。</p>
+  <nav class="culture-jump" aria-label="预订与准备目录"><a href="#flights">已购交通</a><a href="#stay">住宿</a><a href="#pending">待订交通</a><a href="#prep">交通卡与网络</a><a href="#note">费用与行李</a></nav>
+  <div class="booking-block" id="flights">
+<h3 class="block-title">已购交通</h3>
+  <p class="h2sub">两段航班、10/2 富山→扇泽贯通票及 10/3 上高地去程巴士、返程巴士＋电车联票均已购，均为 4 人。以订单及电子票为准。</p>
+  <div class="flights">
+    <article class="flight">
+      <div class="leg">第一程 · 10/1 周四 · 全程 2 小时 20 分</div>
+      <h3>乐桃航空 MM80</h3>
+      <div class="times">
+        <div><b>06:15</b><span>PVG 上海浦东 T2</span></div>
+        <div class="arrow">空客 320<br>无餐食</div>
+        <div style="text-align:right"><b>09:35</b><span>KIX 关西 T2</span></div>
+      </div>
+      <p class="meta">建议 <strong>4:00 前到浦东 T2</strong>。9/30 住机场附近。入境+取箱按 60–90 分钟留。</p>
+    </article>
+    <article class="flight">
+      <div class="leg">第二程 · 10/8 周四 · 全程 3 小时 5 分</div>
+      <h3>吉祥航空 HO1380</h3>
+      <div class="times">
+        <div><b>13:20</b><span>NRT 东京成田 T2</span></div>
+        <div class="arrow">波音 787<br>有餐食</div>
+        <div style="text-align:right"><b>15:25</b><span>PVG 上海浦东 T2</span></div>
+      </div>
+      <p class="meta">建议 <strong>10:30 前到成田 T2</strong>。从都立家政经高田马场、日暮里换 Skyliner，门到门约 90–110 分钟；10/8 早上 07:30–07:45 从住处出发，购票后复核时刻。浦东落地后回杭州另安排。</p>
+    </article>
+    <article class="flight rail">
+      <div class="leg">已购车票 · 10/2 周五 · 单程贯通 · 4 人</div>
+      <h3>富山地铁でゴー！WEB 车票</h3>
+      <div class="ticket-grid">
+        <div><b>08:20</b><span>电铁富山出发</span></div>
+        <div><b>09:28</b><span>抵达立山站</span></div>
+        <div><b>09:50</b><span>立山缆车指定出发</span></div>
+        <div><b>4 人</b><span>订单已确认</span></div>
+      </div>
+      <p class="meta"><strong>区间：</strong>电铁富山 → 扇泽；订单人数 4 人，包含订单所列的 08:20 出发座位保证项目。09:50 是立山站缆车时间，扇泽之后前往信浓大町、松本的交通需另买。<a href="https://www.alpen-route.com/_wp/information/141393" target="_blank" rel="noopener">查看该票种官方说明</a></p>
+    </article>
+    <article class="flight rail">
+      <div class="leg">已购车票 · 10/3 周六 · 单程 · 4 人</div>
+      <h3>新岛岛 → 上高地 · Alpico 巴士</h3>
+      <div class="ticket-grid">
+        <div><b>08:00</b><span>新岛岛出发</span></div>
+        <div><b>08:54</b><span>途经大正池</span></div>
+        <div><b>09:05</b><span>上高地到达</span></div>
+        <div><b>¥12,400</b><span>四人总额 · 已付款</span></div>
+      </div>
+      <p class="meta">电子票显示 02 号车、4 名成人。建议提前到站并向司机出示电子票；原计划从大正池徒步，出票终点是上高地，请在出发前向运营方确认能否在大正池提前下车。<a href="https://www.alpico.co.jp/traffic/local/kamikochi/shinshimashima/" target="_blank" rel="noopener">查看官方时刻</a></p>
+    </article>
+    <article class="flight rail">
+      <div class="leg">已购联票 · 10/3 周六 · 返程 · 4 人</div>
+      <h3>上高地 → 松本 · 巴士＋电车</h3>
+      <div class="ticket-grid">
+        <div><b>16:40</b><span>上高地出发</span></div>
+        <div><b>新岛岛</b><span>转乘上高地线电车</span></div>
+        <div><b>18:29</b><span>松本到达</span></div>
+        <div><b>¥15,240</b><span>四人总额 · 已付款</span></div>
+      </div>
+      <p class="meta">日本巴士在线电子票显示 02 号车、4 名成人，终点为松本，途中在新岛岛换乘电车。提前到上高地乘车点，向司机出示电子票，并核对换乘指引；返程以本票 16:40 出发为准。</p>
+    </article>
+  </div>
+  </div>
+  <div class="booking-block" id="stay">
+<h3 class="block-title">住宿 · 已订订单</h3>
   <p class="h2sub">富山 1 晚、松本 3 晚、东京 3 晚已订。东京是整套 Airbnb，不按酒店双人间计算；房型和实际金额以各订单为准。</p>
   <div class="grid3">
     <div class="card"><span class="tag hot">9/30 · 1 晚 · 待订</span><h3>浦东机场附近</h3><p>T2 步行或 10 分钟车程。4 人 2 间。为 06:15 航班服务。</p></div>
@@ -619,10 +714,20 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
     <div class="card"><span class="tag rec">10/2 入住 – 10/5 退房 · 已订</span><h3>松本 · Hotel Matsumoto Yorozuya</h3><p>连住 3 晚；上高地和乘鞍两天从这里往返。<a href="https://www.booking.com/hotel/jp/hotel-1-2-3-yorozuya-matsumoto.zh-cn.html" target="_blank" rel="noopener">查看 Booking 酒店链接</a></p></div>
     <div class="card"><span class="tag rec">10/5 入住 – 10/8 退房 · 已订</span><h3>东京 · 都立家政整套 Airbnb</h3><p>四人整套住 3 晚；去新宿、银座和成田需算上市郊电车接驳。<a href="https://zh.airbnb.com/rooms/1755640768896315383?check_in=2026-10-05&amp;check_out=2026-10-08&amp;adults=4&amp;currency=CNY" target="_blank" rel="noopener">查看 Airbnb 房源链接</a></p></div>
   </div>
-</section>
-
-<section id="prep">
-  <h2>交通卡与网络</h2>
+  </div>
+  <div class="booking-block" id="pending">
+    <h3 class="block-title">尚待购买或确认的交通</h3>
+    <div class="grid3">
+      <div class="card"><span class="tag hot">10/1 · 待买</span><h3>关西机场 → 富山</h3><p>HARUKA、THUNDERBIRD 与北陆新干线。入境时间不确定，购买时留转车余量。</p></div>
+      <div class="card"><span class="tag hot">10/2 · 另付</span><h3>扇泽 → 松本</h3><p>立山贯通票只到扇泽；扇泽至信浓大町巴士、大糸线到松本另买。若山路停运，改查富山→长野→松本铁路路线。</p></div>
+      <div class="card"><span class="tag hot">10/4 · 待确认</span><h3>乘鞍畳平往返</h3><p>懒觉版建议预约 12:45 上山、15:00 下山；先查道路和座位再购买。天气差时启用松本市内 Plan B。</p></div>
+      <div class="card"><span class="tag hot">10/5 · 待买</span><h3>松本 → 新宿</h3><p>特急 AZUSA 指定席；买到后以订单时间替换日程中的 13:00 规划窗口。</p></div>
+      <div class="card"><span class="tag hot">10/7 · 待买</span><h3>新宿 ⇄ 御殿场</h3><p>四人往返直达高速巴士尚未出票；先锁回程班次，再确定购物与分组集合时间。</p></div>
+      <div class="card"><span class="tag hot">10/8 · 待买</span><h3>日暮里 → 成田 T2</h3><p>京成 Skyliner；目标 10:30 前抵达成田 T2，购票后倒推 Airbnb 出门时间。</p></div>
+    </div>
+  </div>
+  <div class="booking-block" id="prep">
+<h3 class="block-title">交通卡与网络</h3>
   <h3 style="font-size:16px;margin:18px 0 8px">交通卡怎么选</h3>
   <p class="h2sub">这条线：关西→富山（特急+新干线）· 立山黑部（专用票）· 松本巴士 · あずさ指定席 · 东京地铁/西武线 · 京成 Skyliner。IC 卡解决短途乘车，长途及预约交通另买。</p>
   <table class="cmp-table">
@@ -686,25 +791,20 @@ h2{font-family:"Noto Serif SC",serif;font-size:24px;margin:0 0 6px}
       </tr>
     </tbody>
   </table>
-</section>
-
-<section id="note">
-  <h2>钱和注意</h2>
-  <p class="h2sub">机票、三地住宿及两段山地交通去程已购。下列费用须按实付订单重新汇总；未提供的价格不作推算。</p>
+  </div>
+  <div class="booking-block" id="note">
+<h3 class="block-title">费用、行李与出发前核对</h3>
+  <p class="h2sub">机票、三地住宿、10/2 立山贯通票与 10/3 上高地往返均已购；下列费用按实付订单汇总，未提供的金额留待填写。</p>
   <div class="grid3">
     <div class="card"><h3>住宿 · 待汇总实付</h3><p>富山 1 晚、松本 3 晚、东京 Airbnb 3 晚均已订；浦东 9/30 另计。按四人分摊订单实付金额。</p></div>
     <div class="card"><h3>日本交通 · 待汇总实付</h3><p>10/3 上高地去程巴士四人 ¥12,400，返程巴士＋电车联票四人 ¥15,240，均已付款。其余已购、待购车票分别按订单计；御殿场巴士及 Skyliner 尚待订。</p></div>
-    <div class="card"><h3>吃饭 · 人均约 ¥1,760</h3><p>8 天 × 约 ¥220。不含购物和行李超重。</p></div>
+    <div class="card"><h3>餐费 · 待按实际预算填写</h3><p>正餐、山地轻食和购物分开记账。特色餐食清单见“人文·美食”。</p></div>
   </div>
   <div class="callout warn" style="margin-top:16px"><b>乐桃行李</b>MM80 是廉航。四人如果各带一个托运箱，几乎一定要加购。出发前在乐桃 APP 核对件数和公斤数。</div>
-  <div class="callout" style="margin-top:12px"><b>全程随身清单与免税</b>四人各自保存护照、电子票离线截图和住宿地址；山地三天把保暖层、雨衣、手套、水和充电宝放在随身包。2026 年 10 月仍适用现行日本免税购物规则：符合条件的商店通常按同店同日税前满 ¥5,000 起办理，须出示护照；消耗品的密封包装在日本境内不要拆。新退款制 2026/11/1 才开始，具体以<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6559.htm" target="_blank" rel="noopener">日本国税厅现行规则</a>及<a href="https://www.nta.go.jp/publication/pamph/shohi/menzei/201805/format/002.htm" target="_blank" rel="noopener">改革公告</a>为准。</div>
-  <div class="grid3" style="margin-top:12px">
-    <div class="card"><span class="tag">富山</span><h3>黑拉面 / 白虾</h3><p>到站就近吃，第一晚早睡。</p></div>
-    <div class="card"><span class="tag">松本</span><h3>信州荞麦面</h3><p>山里备饭团。</p></div>
-    <div class="card"><span class="tag">东京</span><h3>银座 / 都立家政晚饭</h3><p>御殿场午餐在奥莱解决。</p></div>
-  </div>
+  <div class="callout" style="margin-top:12px"><b>全程随身清单</b>四人各自保存护照、电子票离线截图和住宿地址；山地三天把保暖层、雨衣、手套、水和充电宝放在随身包。免税与行李提醒见独立的<a href="#shopping">购物页</a>。</div>
   <p class="foot">出发前复核：<a href="https://www.jma.go.jp/jma/index.html" target="_blank" rel="noopener">日本气象厅</a> · <a href="https://www.alpen-route.com/en/timetable/" target="_blank" rel="noopener">立山黑部</a> · <a href="https://www.alpico.co.jp/traffic/local/kamikochi/shinshimashima/" target="_blank" rel="noopener">上高地</a> · <a href="https://norikura.gr.jp/en/2026/06/mt-norikura-echo-line-shuttle-bus/" target="_blank" rel="noopener">乘鞍畳平班车</a> · <a href="https://odakyu-highway.jp/hakone/" target="_blank" rel="noopener">御殿场巴士</a>。车次、天气和预订以当日官方信息与个人订单为准。</p>
-  <p class="foot">2026/9/23 更新 · 四人行程 · 航班、三地住宿、10/2 立山黑部及 10/3 上高地往返已购</p>
+  <p class="foot">2026/9/24 更新 · 四人行程 · 10/3 深度徒步与 10/4 剑峰登顶为待选四人方案，原有订单未更改</p>
+  </div>
 </section>
 </div>
 
